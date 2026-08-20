@@ -1,0 +1,405 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #0b0a09;
+}
+
+@keyframes m4rqZoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.025);
+  }
+}
+
+@keyframes m4rqFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes m4rqFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes m4rqBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m4rq-anim {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+.m4rq-cta:hover .m4rq-arrow {
+  transform: translateX(4px);
+}
+
+.m4rq-cta:focus-visible,
+.m4rq-social:focus-visible {
+  outline: 2px solid #e0a35a;
+  outline-offset: 3px;
+}
+
+.m4rq-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.m4rq-reveal.m4rq-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.m4rq-booking-cta:focus-visible {
+  outline: 2px solid #e0a35a;
+  outline-offset: 3px;
+}
+
+.m4rq-footer-link:hover {
+  color: #f5f0e8 !important;
+}
+
+.m4rq-cta:hover {
+  transform: translateY(-3px);
+  border-color: rgba(224, 163, 90, 0.9);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.32), 0 0 26px rgba(207, 138, 63, 0.35);
+  background: rgba(30, 22, 17, 0.45);
+}
+
+.m4rq-booking-cta:hover {
+  transform: translateY(-3px);
+  border-color: rgba(207, 138, 63, 0.75);
+  background: rgba(207, 138, 63, 0.08);
+}
+
+.m4rq-social:hover {
+  transform: translateY(-3px);
+  border-color: rgba(224, 163, 90, 0.95);
+  box-shadow: 0 6px 20px rgba(207, 138, 63, 0.35);
+  background: rgba(28, 20, 15, 0.55);
+}
+
+.m4rq-social-sm:hover {
+  transform: translateY(-2px);
+  border-color: rgba(224, 163, 90, 0.9);
+}
+
+/* Press response on the hero CTAs while the smooth scroll starts. Declared
+   after the :hover rules so it wins at equal specificity — the pointer is by
+   definition still over the button at the moment of the click. */
+.m4rq-cta.is-pressed,
+.m4rq-booking-cta.is-pressed {
+  transform: scale(0.97);
+  border-color: rgba(224, 163, 90, 0.9);
+  background: rgba(207, 138, 63, 0.12);
+}
+
+.m4rq-cta.is-pressed .m4rq-arrow {
+  transform: translateX(6px);
+}
+
+/* Footer studio credit — quiet by default, resolves to the accent on hover. */
+.m4rq-credit {
+  color: rgba(245, 240, 232, 0.5);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(245, 240, 232, 0.18);
+  padding-bottom: 1px;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.m4rq-credit:hover {
+  color: #cf8a3f;
+  border-bottom-color: rgba(207, 138, 63, 0.7);
+}
+
+.m4rq-credit:focus-visible {
+  outline: 2px solid #e0a35a;
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Below-hero sections (redesign). Scoped .m4rqx-* only — nothing here is
+   used by the hero, so the hero's look and behaviour are unaffected.
+   ========================================================================== */
+
+.m4rqx-tile img {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.m4rqx-tile:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.06);
+}
+
+.m4rqx-tile:hover .m4rqx-tile-meta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.m4rqx-row:hover {
+  background: rgba(207, 138, 63, 0.045);
+}
+
+.m4rqx-row:hover .m4rqx-row-date {
+  color: #e0a35a;
+}
+
+.m4rqx-row:hover .m4rqx-row-venue {
+  transform: translateX(6px);
+}
+
+.m4rqx-row:hover .m4rqx-row-action {
+  background: #cf8a3f;
+  border-color: #cf8a3f;
+  color: #0b0a09;
+}
+
+.m4rqx-row:hover .m4rqx-arrow {
+  transform: translateX(4px);
+}
+
+/* Unannounced dates. Rendered as a div (no href, not focusable), so this only
+   has to strip the affordances the shared .m4rqx-row hover rules would add and
+   settle the row back to a quieter weight. Declared after those rules so it
+   wins at equal specificity. */
+.m4rqx-row-tba {
+  cursor: default;
+}
+
+.m4rqx-row-tba .m4rqx-row-date,
+.m4rqx-row-tba:hover .m4rqx-row-date {
+  color: rgba(245, 240, 232, 0.4);
+}
+
+.m4rqx-row-tba .m4rqx-row-venue {
+  color: rgba(245, 240, 232, 0.46);
+}
+
+.m4rqx-row-tba .m4rqx-row-action {
+  border-color: rgba(245, 240, 232, 0.16);
+  color: rgba(245, 240, 232, 0.4);
+}
+
+.m4rqx-row-tba:hover {
+  background: transparent;
+}
+
+.m4rqx-row-tba:hover .m4rqx-row-venue {
+  transform: none;
+}
+
+.m4rqx-row-tba:hover .m4rqx-row-action {
+  background: transparent;
+  border-color: rgba(245, 240, 232, 0.16);
+  color: rgba(245, 240, 232, 0.4);
+}
+
+.m4rqx-solid:hover {
+  background: #f1a64f;
+  transform: translateY(-2px);
+}
+
+.m4rqx-ghost:hover {
+  border-color: rgba(224, 163, 90, 0.9);
+  background: rgba(207, 138, 63, 0.09);
+}
+
+.m4rqx-tile:focus-visible,
+.m4rqx-row:focus-visible,
+.m4rqx-solid:focus-visible,
+.m4rqx-ghost:focus-visible {
+  outline: 2px solid #e0a35a;
+  outline-offset: 3px;
+}
+
+/* Booking branded texture. The source is a near-black logo pattern (mean luma
+   ~11, essentially the page background), so opacity is the wrong control — it
+   can only erase it. brightness() does the lifting instead; contrast/saturate
+   are kept low so the glyph edges and amber accents read without the dark areas
+   crushing below the site base and turning the section into a dark rectangle. */
+.m4rqx-booking-bg {
+  object-position: center center;
+  opacity: 1;
+  filter: brightness(1.65) contrast(1.04) saturate(1.08);
+}
+
+/* Agenda background video. The clip runs dark (mean luma ~50-110) but spikes
+   to near-white on its fire hits, so brightness() tames the highlights before
+   the scrims land on top — together they hold it near a third of its own
+   presence, which keeps #f5f0e8 event text crisp at every frame. The figure
+   sits centred and slightly high, so the crop favours the upper middle. */
+.m4rqx-agenda-video {
+  object-position: center 45%;
+  filter: brightness(0.73) saturate(1.32);
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+
+.m4rqx-agenda-video.is-live {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .m4rq-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .m4rqx-tile img,
+  .m4rqx-row-venue,
+  .m4rqx-arrow {
+    transition: none !important;
+  }
+
+  /* The video is not mounted at all under reduced motion; this is belt-and-braces
+     so no entrance fade can run if that ever changes. */
+  .m4rqx-agenda-video {
+    transition: none !important;
+  }
+
+  /* Smooth-scroll travel is skipped in JS under reduced motion, so the press
+     class is never applied — this just guarantees no decorative transform. */
+  .m4rq-cta.is-pressed,
+  .m4rq-booking-cta.is-pressed {
+    transform: none !important;
+  }
+}
+
+/* Desktop-only: the mosaic's 4th (bottom) grid row was disproportionately
+   short next to rows 1-3 — clamp(118px,11vw,152px) against
+   clamp(148px,14.2vw,202px) — so the crowd/booth/portrait tiles in it got
+   cropped hard by object-fit: cover. Rows 1-3 (and the section's own
+   padding) are left at their original values; only row 4's height grows,
+   which is the actual fix for cards, not outer spacing. Mobile/tablet
+   (<=1000px) keep the original grid-auto-rows sizing untouched. */
+@media (min-width: 1001px) {
+  .m4rqx-mosaic {
+    grid-template-rows: repeat(3, clamp(148px, 14.2vw, 202px)) clamp(200px, 18vw, 260px) !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .m4rqx-bio {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+    align-items: start !important;
+  }
+
+  .m4rqx-bio > *:first-child {
+    max-width: 560px;
+  }
+
+  .m4rqx-mosaic {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: none !important;
+    grid-auto-rows: 40vw !important;
+  }
+
+  .m4rqx-mosaic > * {
+    grid-column: auto !important;
+    grid-row: auto !important;
+  }
+
+  .m4rqx-mosaic > .m4rqx-tile-lead {
+    grid-column: 1 / -1 !important;
+    grid-row: span 2 !important;
+  }
+
+  .m4rqx-archive {
+    grid-template-columns: 1fr !important;
+  }
+
+  .m4rqx-archive > div:last-child {
+    order: -1;
+    min-height: 42vw !important;
+  }
+
+  .m4rqx-booking {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+
+  .m4rqx-agency {
+    border-left: 0 !important;
+    border-top: 1px solid rgba(245, 240, 232, 0.1);
+    padding-left: 0 !important;
+    padding-top: 32px;
+  }
+}
+
+@media (max-width: 720px) {
+  .m4rqx-row {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 22px 0 !important;
+  }
+
+  .m4rqx-row-action {
+    justify-self: start !important;
+    margin-top: 6px;
+  }
+
+  .m4rqx-row-venue {
+    transform: none !important;
+  }
+
+  .m4rqx-metarow {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 18px 16px !important;
+  }
+
+  .m4rqx-mosaic {
+    grid-auto-rows: 52vw !important;
+    gap: 8px !important;
+  }
+
+  /* Portrait viewports crop the 16:9 clip hard, pushing the bright vortex
+     straight behind the stacked event rows — so centre the crop and lean the
+     scrim darker. Text readability wins over footage on small screens. */
+  .m4rqx-agenda-video {
+    object-position: center center;
+    filter: brightness(0.63) saturate(1.28);
+  }
+
+  .m4rqx-agenda-scrim {
+    background: rgba(5, 5, 8, 0.72) !important;
+  }
+
+  .m4rqx-archive > div:last-child {
+    min-height: 56vw !important;
+  }
+
+  .m4rqx-footer-top {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 28px !important;
+  }
+}

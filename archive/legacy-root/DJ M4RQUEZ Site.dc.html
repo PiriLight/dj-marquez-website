@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @keyframes m4rqZoom { from { transform: scale(1); } to { transform: scale(1.025); } }
+    @keyframes m4rqFadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes m4rqFadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes m4rqBounce { 0%, 100% { transform: translateY(0); opacity: 0.55; } 50% { transform: translateY(6px); opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) {
+      .m4rq-anim { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .m4rq-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+    body { margin: 0; background: #0b0a09; overflow-x: hidden; }
+    a { color: #cf8a3f; }
+    a:hover { color: #f1a64f; }
+    .m4rq-cta:hover .m4rq-arrow { transform: translateX(4px); }
+    .m4rq-cta:focus-visible, .m4rq-social:focus-visible { outline: 2px solid #e0a35a; outline-offset: 3px; }
+    .m4rq-reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .m4rq-reveal.m4rq-visible { opacity: 1; transform: translateY(0); }
+    .m4rq-booking-cta:focus-visible, .m4rq-link:focus-visible, .m4rq-tile:focus-visible, .m4rq-row:focus-visible { outline: 2px solid #e0a35a; outline-offset: 3px; }
+    /* --- below-hero only --- */
+    .m4rq-tile img { transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease; }
+    .m4rq-tile:hover img { transform: scale(1.06); filter: brightness(1.06); }
+    .m4rq-tile:hover .m4rq-tile-meta { opacity: 1; transform: translateY(0); }
+    .m4rq-row:hover { background: rgba(207,138,63,0.045); }
+    .m4rq-row:hover .m4rq-row-date { color: #e0a35a; }
+    .m4rq-row:hover .m4rq-row-venue { transform: translateX(6px); }
+    .m4rq-row:hover .m4rq-row-action { background: #cf8a3f; border-color: #cf8a3f; color: #0b0a09; }
+    .m4rq-row:hover .m4rq-row-action .m4rq-arrow { transform: translateX(4px); }
+    .m4rq-link:hover { color: #f5f0e8; }
+    .m4rq-solid:hover { background: #f1a64f; transform: translateY(-2px); }
+    .m4rq-ghost:hover { border-color: rgba(224,163,90,0.9); background: rgba(207,138,63,0.09); }
+    @media (max-width: 1000px) {
+      .m4rq-bio { grid-template-columns: 1fr !important; gap: 28px !important; align-items: start !important; }
+      .m4rq-bio > div:first-child { max-width: 560px; }
+      .m4rq-mosaic { grid-template-columns: repeat(2, 1fr) !important; grid-template-rows: none !important; grid-auto-rows: 40vw !important; }
+      .m4rq-mosaic > * { grid-column: auto !important; grid-row: auto !important; }
+      .m4rq-mosaic > .m4rq-tile-lead { grid-column: 1 / -1 !important; grid-row: span 2 !important; }
+      .m4rq-mosaic > [data-placeholder] { grid-column: 1 / -1 !important; height: 108px !important; flex-direction: row !important; gap: 14px !important; }
+      .m4rq-mosaic > [data-placeholder] > span { display: none; }
+      .m4rq-archive { grid-template-columns: 1fr !important; }
+      .m4rq-archive > div:last-child { order: -1; min-height: 42vw !important; }
+      .m4rq-booking { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .m4rq-booking > div:last-child { border-left: 0 !important; border-top: 1px solid rgba(245,240,232,0.1); padding-left: 0 !important; padding-top: 32px; }
+    }
+    @media (max-width: 720px) {
+      .m4rq-row { grid-template-columns: 1fr !important; gap: 8px !important; padding: 22px 0 !important; }
+      .m4rq-row-action { justify-self: start !important; margin-top: 6px; }
+      .m4rq-row-venue { transform: none !important; }
+      .m4rq-metarow { grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 18px 16px !important; }
+      .m4rq-mosaic { grid-auto-rows: 52vw !important; gap: 8px !important; }
+      .m4rq-footer-top { flex-direction: column !important; align-items: flex-start !important; gap: 28px !important; }
+      .m4rq-archive > div:last-child { min-height: 56vw !important; }
+    }
+  </style>
+</helmet>
+
+<div style="position:relative;">
+<section style="position:sticky;top:0;width:100%;height:100svh;overflow:hidden;background:#0b0a09;font-family:'Inter',sans-serif;">
+
+  <video
+    ref="{{ videoRef }}"
+    class="m4rq-anim"
+    src="./videos/hero-video.mp4"
+    autoplay=""
+    muted=""
+    loop=""
+    playsinline=""
+    style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 32%;animation:m4rqZoom 22s ease-in-out infinite alternate;will-change:transform;opacity:{{ videoOpacity }};"
+  ></video>
+
+  <div style="position:absolute;inset:0;background:{{ overlayColor }};"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to bottom, rgba(11,10,9,0.15) 0%, rgba(11,10,9,0.05) 35%, rgba(11,10,9,0.55) 78%, rgba(11,10,9,0.88) 100%);"></div>
+  <div style="position:absolute;inset:0;box-shadow:inset 0 0 min(18vw,220px) rgba(0,0,0,0.55);"></div>
+
+  <div style="position:relative;z-index:2;height:100%;opacity:{{ contentOpacity }};transform:{{ contentTransform }};">
+  <div style="position:absolute;top:50%;left:0;right:0;transform:translateY(-50%);display:flex;justify-content:center;padding:0 6vw;">
+    <img
+      class="m4rq-anim"
+      src="./images/logo-m4rquez.png"
+      alt="DJ M4rquez"
+      style="width:min(78vw,360px);max-width:100%;height:auto;filter:drop-shadow(0 4px 24px rgba(0,0,0,0.5));animation:m4rqFadeUp 0.6s cubic-bezier(0.16,1,0.3,1) 0.05s both;"
+    />
+  </div>
+
+  <div style="position:absolute;top:calc(50% + min(26vw,120px));left:0;right:0;bottom:0;display:flex;flex-direction:column;transform:translateY(-7vh);">
+
+    <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px;">
+        <a
+          href="#eventos"
+          class="m4rq-anim m4rq-cta"
+          style="display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:14px 30px;background:rgba(24,18,14,0.35);backdrop-filter:blur(10px) saturate(160%);-webkit-backdrop-filter:blur(10px) saturate(160%);color:#f5f0e8;font-family:'Oswald',sans-serif;font-weight:600;font-size:14px;letter-spacing:0.12em;text-transform:uppercase;text-decoration:none;border-radius:12px;border:1px solid rgba(207,138,63,0.5);box-shadow:0 8px 24px rgba(0,0,0,0.28);transition:transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;animation:m4rqFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.5s both;"
+          style-hover="transform:translateY(-3px);border-color:rgba(224,163,90,0.9);box-shadow:0 10px 28px rgba(0,0,0,0.32), 0 0 26px rgba(207,138,63,0.35);background:rgba(30,22,17,0.45);"
+        >
+          <span>Próximos Eventos</span>
+          <span style="display:inline-block;transition:transform 0.25s ease;" class="m4rq-arrow">→</span>
+        </a>
+        <a
+          href="#booking"
+          class="m4rq-anim m4rq-booking-cta"
+          style="display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:13px 26px;background:transparent;color:rgba(245,240,232,0.85);font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;border-radius:12px;border:1px solid rgba(207,138,63,0.4);transition:transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;animation:m4rqFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.55s both;"
+          style-hover="transform:translateY(-3px);border-color:rgba(207,138,63,0.75);background:rgba(207,138,63,0.08);"
+        >
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4.5" width="18" height="16" rx="2.5"></rect><path d="M3 9.5h18"></path><path d="M8 3v3M16 3v3"></path></svg>
+          <span>Agendar Artista</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2.5vh,24px);text-align:center;padding:0 6vw clamp(28px,5vh,44px);">
+      <div style="display:flex;gap:22px;">
+        <a href="#" aria-label="Instagram" class="m4rq-social" style="width:46px;height:46px;background:rgba(20,15,12,0.4);backdrop-filter:blur(6px);border:1.5px solid rgba(207,138,63,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;" style-hover="transform:translateY(-3px);border-color:rgba(224,163,90,0.95);box-shadow:0 6px 20px rgba(207,138,63,0.35);background:rgba(28,20,15,0.55);">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle></svg>
+        </a>
+        <a href="#" aria-label="TikTok" class="m4rq-social" style="width:46px;height:46px;background:rgba(20,15,12,0.4);backdrop-filter:blur(6px);border:1.5px solid rgba(207,138,63,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;" style-hover="transform:translateY(-3px);border-color:rgba(224,163,90,0.95);box-shadow:0 6px 20px rgba(207,138,63,0.35);background:rgba(28,20,15,0.55);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2c.4 2.2 1.9 3.9 4.1 4.2v3.1c-1.5 0-2.9-.5-4.1-1.3v6.7c0 3.6-2.9 6.3-6.3 6.3S4 18.3 4 14.7c0-3.5 2.7-6.2 6.1-6.3v3.2c-1.6.1-2.9 1.4-2.9 3.1 0 1.7 1.4 3.1 3.1 3.1s3.2-1.4 3.2-3.1V2h3z"></path></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="m4rq-social" style="width:46px;height:46px;background:rgba(20,15,12,0.4);backdrop-filter:blur(6px);border:1.5px solid rgba(207,138,63,0.55);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;" style-hover="transform:translateY(-3px);border-color:rgba(224,163,90,0.95);box-shadow:0 6px 20px rgba(207,138,63,0.35);background:rgba(28,20,15,0.55);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"></rect><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="m4rq-anim" style="position:absolute;left:50%;bottom:clamp(16px,3vh,28px);transform:translateX(-50%);width:1px;height:26px;background:linear-gradient(to bottom, rgba(245,240,232,0.6), rgba(245,240,232,0));animation:m4rqBounce 1.8s ease-in-out infinite;"></div>
+  </div>
+
+</section>
+<div style="height:130vh;"></div>
+</div>
+
+<main style="position:relative;z-index:3;margin-top:-52vh;font-family:'Inter',sans-serif;color:#f5f0e8;background:linear-gradient(180deg, rgba(11,10,9,0) 0%, rgba(11,10,9,0.75) 14%, #0b0a09 30%, #0b0a09 100%);">
+
+<section aria-labelledby="bio-name" style="position:relative;padding:clamp(120px,22vh,260px) clamp(20px,6vw,88px) clamp(72px,10vh,120px);">
+  <div style="position:absolute;top:22%;left:-10%;width:60vw;height:60vw;max-width:900px;max-height:900px;background:radial-gradient(circle, rgba(207,138,63,0.12) 0%, rgba(207,138,63,0) 62%);pointer-events:none;"></div>
+
+  <div class="m4rq-bio" style="position:relative;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,0.92fr) minmax(0,1fr);gap:clamp(32px,5vw,80px);align-items:end;">
+
+    <div class="m4rq-reveal" style="position:relative;">
+      <img
+        src="./images/artist-portrait.webp"
+        alt="DJ M4rquez a atuar em palco"
+        loading="lazy"
+        decoding="async"
+        style="width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 30%;display:block;filter:saturate(0.92) contrast(1.06);-webkit-mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 16%, #000 72%, rgba(0,0,0,0) 100%);mask-image:linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 16%, #000 72%, rgba(0,0,0,0) 100%);"
+      />
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(11,10,9,0.55) 0%, rgba(11,10,9,0) 38%);pointer-events:none;"></div>
+    </div>
+
+    <div class="m4rq-reveal" style="display:flex;flex-direction:column;gap:clamp(20px,2.6vw,30px);padding-bottom:clamp(0px,4vh,48px);">
+      <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:rgba(245,240,232,0.42);">O Artista</p>
+
+      <h2 id="bio-name" style="margin:0;font-family:'Oswald',sans-serif;font-weight:700;font-size:clamp(48px,8.4vw,132px);line-height:0.88;letter-spacing:-0.015em;text-transform:uppercase;color:#f5f0e8;">DJ M4rquez</h2>
+
+      <div style="display:flex;align-items:center;gap:18px;">
+        <span style="width:clamp(28px,5vw,72px);height:1px;background:#cf8a3f;flex-shrink:0;"></span>
+        <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(12px,1.2vw,15px);letter-spacing:0.2em;text-transform:uppercase;color:#cf8a3f;">Afro House &bull; Afro Tech &bull; Afrobeat</p>
+      </div>
+
+      <p style="margin:0;font-size:clamp(15px,1.25vw,18px);line-height:1.75;color:rgba(245,240,232,0.7);max-width:48ch;text-wrap:pretty;">
+        Rooted in the rhythms of Afro House and driven by an unmistakable urban energy, DJ M4rquez has built a reputation for sets that move crowds from the first beat. Every performance blends deep grooves with raw, dancefloor intensity. A Portuguese artist with an international sound.
+      </p>
+
+      <div class="m4rq-metarow" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin-top:clamp(8px,2vh,20px);border-top:1px solid rgba(245,240,232,0.1);padding-top:clamp(18px,2.6vh,28px);">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(245,240,232,0.38);">Base</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(15px,1.5vw,19px);letter-spacing:0.04em;color:#f5f0e8;">Portugal</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(245,240,232,0.38);">Som</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(15px,1.5vw,19px);letter-spacing:0.04em;color:#f5f0e8;">Afro House</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <span style="font-size:11px;letter-spacing:0.24em;text-transform:uppercase;color:rgba(245,240,232,0.38);">Formato</span>
+          <span style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(15px,1.5vw,19px);letter-spacing:0.04em;color:#f5f0e8;">Live Performances</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="momentos" style="position:relative;padding:clamp(48px,8vh,96px) clamp(20px,6vw,88px) clamp(56px,8vh,104px);">
+  <div class="m4rq-reveal" style="max-width:1320px;margin:0 auto clamp(28px,4vh,48px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px;">
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:#cf8a3f;">Media</p>
+      <h2 id="momentos" style="margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(32px,4.6vw,66px);line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;color:#f5f0e8;">Momentos ao vivo</h2>
+    </div>
+    <p style="margin:0;font-size:14px;line-height:1.7;color:rgba(245,240,232,0.5);max-width:34ch;">Uma seleção das noites mais fortes — cabine, pista e palco.</p>
+  </div>
+
+  <div class="m4rq-mosaic m4rq-reveal" style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:repeat(3,clamp(148px,14.2vw,202px)) clamp(118px,11vw,152px);gap:clamp(8px,0.9vw,14px);">
+
+    <div class="m4rq-tile m4rq-tile-lead" tabindex="0" role="button" aria-label="Abrir fotografia: cabine de DJ" onClick="{{ open.lead }}" onKeyDown="{{ keyOpen.lead }}" style="grid-column:1 / span 7;grid-row:1 / span 3;position:relative;overflow:hidden;background:#141110;cursor:pointer;">
+      <img src="./images/gallery-4.webp" alt="DJ M4rquez na cabine durante um set ao vivo" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,10,9,0) 45%, rgba(11,10,9,0.72) 100%);pointer-events:none;"></div>
+      <div class="m4rq-tile-meta" style="position:absolute;left:clamp(16px,2vw,28px);bottom:clamp(16px,2vw,26px);right:20px;opacity:0.85;transform:translateY(6px);transition:opacity 0.4s ease, transform 0.4s ease;pointer-events:none;">
+        <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(16px,1.6vw,22px);letter-spacing:0.05em;text-transform:uppercase;color:#f5f0e8;">Main Room</p>
+        <p style="margin:4px 0 0;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,240,232,0.6);">Lisboa, Portugal</p>
+      </div>
+    </div>
+
+    <div class="m4rq-tile" tabindex="0" role="button" aria-label="Reproduzir vídeo de atuação" onClick="{{ open.video }}" onKeyDown="{{ keyOpen.video }}" style="grid-column:8 / span 5;grid-row:1 / span 2;position:relative;overflow:hidden;background:#141110;cursor:pointer;">
+      <img src="./images/gallery-1.webp" alt="Fotograma de vídeo de uma atuação ao vivo" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,10,9,0.15) 0%, rgba(11,10,9,0.55) 100%);pointer-events:none;"></div>
+      <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;">
+        <div style="width:64px;height:64px;border-radius:50%;border:1px solid rgba(245,240,232,0.7);background:rgba(11,10,9,0.28);backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;">
+          <div style="width:0;height:0;border-top:8px solid transparent;border-bottom:8px solid transparent;border-left:13px solid #f5f0e8;margin-left:4px;"></div>
+        </div>
+      </div>
+      <p style="position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(14px,1.6vw,20px);margin:0;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.72);pointer-events:none;">Vídeo &bull; Live set</p>
+    </div>
+
+    <div class="m4rq-tile" tabindex="0" role="button" aria-label="Abrir fotografia: retrato" onClick="{{ open.portrait }}" onKeyDown="{{ keyOpen.portrait }}" style="grid-column:8 / span 5;grid-row:3;position:relative;overflow:hidden;background:#141110;cursor:pointer;">
+      <img src="./images/gallery-7.webp" alt="Retrato de DJ M4rquez em atuação" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center 28%;display:block;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,10,9,0) 45%, rgba(11,10,9,0.68) 100%);pointer-events:none;"></div>
+      <div class="m4rq-tile-meta" style="position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(14px,1.6vw,20px);opacity:0.8;transform:translateY(6px);transition:opacity 0.4s ease, transform 0.4s ease;pointer-events:none;">
+        <p style="margin:0;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.72);">Backstage &bull; Porto</p>
+      </div>
+    </div>
+
+    <div class="m4rq-tile" tabindex="0" role="button" aria-label="Abrir fotografia: pista" onClick="{{ open.crowd }}" onKeyDown="{{ keyOpen.crowd }}" style="grid-column:1 / span 5;grid-row:4;position:relative;overflow:hidden;background:#141110;cursor:pointer;">
+      <img src="./images/gallery-1.webp" alt="Pista cheia durante uma atuação" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,10,9,0) 45%, rgba(11,10,9,0.62) 100%);pointer-events:none;"></div>
+      <div class="m4rq-tile-meta" style="position:absolute;left:clamp(14px,1.6vw,22px);bottom:clamp(12px,1.4vw,18px);opacity:0.8;transform:translateY(6px);transition:opacity 0.4s ease, transform 0.4s ease;pointer-events:none;">
+        <p style="margin:0;font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,240,232,0.72);">Dancefloor &bull; Faro</p>
+      </div>
+    </div>
+
+    <div class="m4rq-tile" tabindex="0" role="button" aria-label="Abrir fotografia: cabine" onClick="{{ open.lead }}" onKeyDown="{{ keyOpen.lead }}" style="grid-column:6 / span 4;grid-row:4;position:relative;overflow:hidden;background:#141110;cursor:pointer;">
+      <img src="./images/gallery-4.webp" alt="Detalhe da cabine durante o set" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:70% 40%;display:block;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(11,10,9,0) 45%, rgba(11,10,9,0.62) 100%);pointer-events:none;"></div>
+    </div>
+
+    <!-- TEMPORARY MEDIA SLOT — placeholder only, remove before production (see mediaSlots prop) -->
+    <sc-if value="{{ showSlots }}" hint-placeholder-val="{{ true }}">
+      <div data-placeholder="media-slot" style="grid-column:10 / span 3;grid-row:4;position:relative;overflow:hidden;background:#100d0b;border:1px dashed rgba(207,138,63,0.28);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:14px;box-sizing:border-box;">
+        <span style="width:18px;height:1px;background:rgba(207,138,63,0.5);"></span>
+        <p style="margin:0;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(207,138,63,0.6);">Slot temporário</p>
+        <p style="margin:0;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,240,232,0.3);">Vídeo backstage</p>
+      </div>
+    </sc-if>
+  </div>
+</section>
+
+<section aria-labelledby="arquivo" style="position:relative;padding:clamp(24px,4vh,56px) clamp(20px,6vw,88px) clamp(72px,10vh,120px);">
+  <div class="m4rq-archive m4rq-reveal" style="position:relative;max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:stretch;overflow:hidden;background:#100d0b;">
+    <div style="position:relative;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2.4vw,28px);padding:clamp(36px,5vw,72px);">
+      <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:#cf8a3f;">Arquivo</p>
+      <h2 id="arquivo" style="margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(30px,3.6vw,54px);line-height:1.02;letter-spacing:-0.01em;color:#f5f0e8;text-wrap:balance;">Todas as noites.<br />Num só lugar.</h2>
+      <p style="margin:0;font-size:clamp(15px,1.2vw,17px);line-height:1.7;color:rgba(245,240,232,0.62);max-width:42ch;">Explora o arquivo completo de fotografias e vídeos de cada atuação.</p>
+      <a
+        href="{{ driveUrl }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="m4rq-solid"
+        style="align-self:flex-start;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;background:#cf8a3f;color:#0b0a09;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;min-height:52px;box-sizing:border-box;transition:background 0.25s ease, transform 0.25s ease;"
+      >Explorar arquivo →</a>
+      <p style="margin:0;font-size:12px;letter-spacing:0.06em;color:rgba(245,240,232,0.38);">Ficheiros disponíveis para download em qualidade original.</p>
+      <!-- TEMPORARY NOTE — placeholder only, hidden when mediaSlots is off -->
+      <sc-if value="{{ showSlots }}" hint-placeholder-val="{{ true }}">
+        <p data-placeholder="drive-url" style="margin:0;display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px dashed rgba(207,138,63,0.3);font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(207,138,63,0.62);align-self:flex-start;">Placeholder &bull; substituir pelo URL do Google Drive</p>
+      </sc-if>
+    </div>
+
+    <div style="position:relative;min-height:clamp(260px,32vw,460px);overflow:hidden;">
+      <img src="./images/gallery-4.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(0.35) brightness(0.62);" />
+      <div style="position:absolute;inset:0;background:linear-gradient(90deg, #100d0b 0%, rgba(16,13,11,0.55) 42%, rgba(16,13,11,0.25) 100%);"></div>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg, rgba(255,255,255,0.014) 0px, rgba(255,255,255,0.014) 1px, rgba(0,0,0,0) 1px, rgba(0,0,0,0) 3px);"></div>
+    </div>
+  </div>
+</section>
+
+<section id="eventos" aria-labelledby="eventos-title" style="position:relative;padding:clamp(56px,9vh,110px) clamp(20px,6vw,88px);">
+  <div class="m4rq-reveal" style="max-width:1320px;margin:0 auto clamp(26px,4vh,44px);display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:18px;">
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:#cf8a3f;">Agenda</p>
+      <h2 id="eventos-title" style="margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(32px,4.6vw,66px);line-height:0.95;letter-spacing:-0.01em;text-transform:uppercase;color:#f5f0e8;">Próximos Eventos</h2>
+    </div>
+    <p style="margin:0;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,240,232,0.4);">2026</p>
+  </div>
+
+  <div style="max-width:1320px;margin:0 auto;border-top:1px solid rgba(245,240,232,0.12);">
+    <sc-for list="{{ events }}" as="ev" hint-placeholder-count="4">
+      <a
+        href="#"
+        class="m4rq-row m4rq-reveal"
+        style="display:grid;grid-template-columns:minmax(120px,0.5fr) minmax(0,1.4fr) minmax(0,1fr) auto;align-items:center;gap:clamp(16px,3vw,40px);padding:clamp(22px,3vh,34px) clamp(8px,1.6vw,24px);border-bottom:1px solid rgba(245,240,232,0.12);text-decoration:none;color:inherit;transition:background 0.35s ease;"
+      >
+        <span class="m4rq-row-date" style="font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(16px,1.5vw,21px);letter-spacing:0.08em;text-transform:uppercase;color:rgba(245,240,232,0.9);transition:color 0.3s ease;">{{ ev.date }}</span>
+        <span class="m4rq-row-venue" style="font-family:'Oswald',sans-serif;font-weight:500;font-size:clamp(20px,2.4vw,34px);letter-spacing:0.01em;color:#f5f0e8;transition:transform 0.35s cubic-bezier(0.16,1,0.3,1);display:inline-block;">{{ ev.venue }}</span>
+        <span style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(245,240,232,0.5);">{{ ev.city }}</span>
+        <span class="m4rq-row-action" style="display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:0 20px;min-height:46px;border:1px solid rgba(207,138,63,0.5);border-radius:2px;font-family:'Oswald',sans-serif;font-weight:600;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:#e0a35a;background:transparent;transition:background 0.25s ease, border-color 0.25s ease, color 0.25s ease;white-space:nowrap;">Bilhetes <span class="m4rq-arrow" style="display:inline-block;transition:transform 0.25s ease;">→</span></span>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section id="booking" aria-labelledby="booking-title" style="position:relative;padding:clamp(64px,10vh,128px) clamp(20px,6vw,88px);background:linear-gradient(180deg,#0b0a09 0%,#100d0b 100%);border-top:1px solid rgba(245,240,232,0.07);">
+  <div class="m4rq-booking m4rq-reveal" style="max-width:1320px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,0.75fr);gap:clamp(36px,6vw,96px);align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:clamp(20px,2.4vw,28px);">
+      <p style="margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:0.32em;text-transform:uppercase;color:#cf8a3f;">Booking</p>
+      <h2 id="booking-title" style="margin:0;font-family:'Oswald',sans-serif;font-weight:600;font-size:clamp(32px,4.4vw,62px);line-height:0.98;letter-spacing:-0.01em;text-transform:uppercase;color:#f5f0e8;text-wrap:balance;">Leva o som para a tua noite</h2>
+      <p style="margin:0;font-size:clamp(15px,1.2vw,17px);line-height:1.7;color:rgba(245,240,232,0.62);max-width:44ch;">Para atuações, eventos e informações profissionais.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;">
+        <a href="#booking" class="m4rq-solid" style="display:inline-flex;align-items:center;gap:12px;padding:16px 32px;background:#cf8a3f;color:#0b0a09;font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;min-height:52px;box-sizing:border-box;transition:background 0.25s ease, transform 0.25s ease;">Agendar artista →</a>
+        <a href="#beatwave-contact" class="m4rq-ghost" style="display:inline-flex;align-items:center;gap:10px;padding:16px 28px;border:1px solid rgba(207,138,63,0.45);color:#f5f0e8;font-family:'Oswald',sans-serif;font-weight:500;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;min-height:52px;box-sizing:border-box;transition:border-color 0.25s ease, background 0.25s ease;">Contactar Beat Wave</a>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:18px;padding-left:clamp(0px,3vw,44px);border-left:1px solid rgba(245,240,232,0.1);">
+      <p style="margin:0;font-size:11px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(245,240,232,0.38);">Representação</p>
+      <img src="./images/beatwave-logo.webp" alt="Beat Wave" loading="lazy" decoding="async" style="width:clamp(132px,12vw,180px);height:auto;object-fit:contain;display:block;filter:invert(1) brightness(0.96);mix-blend-mode:screen;" />
+      <p style="margin:0;font-size:15px;line-height:1.7;color:rgba(245,240,232,0.72);max-width:34ch;">DJ M4rquez é representado pela <strong style="color:#f5f0e8;font-weight:600;">Beat Wave</strong>. Para informações profissionais, atuações e booking, contacte a agência.</p>
+    </div>
+  </div>
+</section>
+
+<footer style="position:relative;background:#08070c;padding:clamp(48px,7vh,80px) clamp(20px,6vw,88px) clamp(26px,4vh,36px);">
+  <div class="m4rq-footer-top" style="max-width:1320px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:40px;">
+    <img src="./images/logo-m4rquez.png" alt="DJ M4rquez" loading="lazy" style="width:clamp(120px,12vw,160px);height:auto;display:block;" />
+
+    <div style="display:flex;gap:14px;">
+      <a href="#" aria-label="Instagram" class="m4rq-social" style="width:44px;height:44px;background:rgba(20,15,12,0.4);border:1px solid rgba(207,138,63,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease;" style-hover="transform:translateY(-2px);border-color:rgba(224,163,90,0.9);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.2" cy="6.8" r="0.9" fill="currentColor" stroke="none"></circle></svg>
+      </a>
+      <a href="#" aria-label="TikTok" class="m4rq-social" style="width:44px;height:44px;background:rgba(20,15,12,0.4);border:1px solid rgba(207,138,63,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease;" style-hover="transform:translateY(-2px);border-color:rgba(224,163,90,0.9);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2c.4 2.2 1.9 3.9 4.1 4.2v3.1c-1.5 0-2.9-.5-4.1-1.3v6.7c0 3.6-2.9 6.3-6.3 6.3S4 18.3 4 14.7c0-3.5 2.7-6.2 6.1-6.3v3.2c-1.6.1-2.9 1.4-2.9 3.1 0 1.7 1.4 3.1 3.1 3.1s3.2-1.4 3.2-3.1V2h3z"></path></svg>
+      </a>
+      <a href="#" aria-label="YouTube" class="m4rq-social" style="width:44px;height:44px;background:rgba(20,15,12,0.4);border:1px solid rgba(207,138,63,0.45);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#f0dcc0;text-decoration:none;transition:transform 0.2s ease, border-color 0.2s ease;" style-hover="transform:translateY(-2px);border-color:rgba(224,163,90,0.9);">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="3.5"></rect><path d="M10.5 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"></path></svg>
+      </a>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:14px;">
+      <img src="./images/beatwave-logo.webp" alt="Beat Wave" loading="lazy" style="width:72px;height:auto;object-fit:contain;display:block;filter:invert(1) brightness(0.9);mix-blend-mode:screen;opacity:0.9;" />
+      <p style="margin:0;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,240,232,0.5);">Representado pela Beat Wave</p>
+    </div>
+  </div>
+
+  <div style="max-width:1320px;margin:clamp(28px,4vh,44px) auto 0;padding-top:22px;border-top:1px solid rgba(245,240,232,0.08);">
+    <p style="margin:0;font-size:12px;color:rgba(245,240,232,0.35);letter-spacing:0.02em;">© 2026 DJ M4rquez. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</main>
+
+<sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;z-index:80;background:rgba(8,7,6,0.95);display:flex;align-items:center;justify-content:center;padding:5vw;animation:m4rqFadeIn 0.25s ease both;">
+    <button onClick="{{ closeLightbox }}" aria-label="Fechar" style="position:absolute;top:24px;right:24px;width:46px;height:46px;border-radius:50%;background:rgba(24,18,14,0.5);border:1px solid rgba(245,240,232,0.3);color:#f5f0e8;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">×</button>
+    <div onClick="{{ stopPropagation }}" style="max-width:min(92vw,1000px);width:100%;">
+      <sc-if value="{{ lightboxIsVideo }}" hint-placeholder-val="{{ false }}">
+        <video src="./videos/hero-video.mp4" controls="" autoplay="" playsinline="" style="width:100%;max-height:84vh;display:block;background:#000;"></video>
+      </sc-if>
+      <sc-if value="{{ lightboxIsPhoto }}" hint-placeholder-val="{{ false }}">
+        {{ lightboxImg }}
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;overlayIntensity&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:0.42,&quot;min&quot;:0,&quot;max&quot;:0.8,&quot;step&quot;:0.05,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hero&quot;},&quot;driveUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Arquivo&quot;},&quot;mediaSlots&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Produção&quot;}}">
+const EVENTS = [
+  { date: '12 SET 2026', venue: 'Lux Frágil', city: 'Lisboa, Portugal' },
+  { date: '26 SET 2026', venue: 'Plano B', city: 'Porto, Portugal' },
+  { date: '10 OUT 2026', venue: 'Industria Club', city: 'Faro, Portugal' },
+  { date: '31 OUT 2026', venue: 'Salvaje', city: 'Braga, Portugal' },
+];
+
+const MEDIA = {
+  lead: { src: './images/gallery-4.webp', alt: 'DJ M4rquez na cabine durante um set ao vivo', video: false },
+  video: { src: './images/gallery-1.webp', alt: 'Vídeo de atuação', video: true },
+  portrait: { src: './images/gallery-7.webp', alt: 'Retrato de DJ M4rquez em atuação', video: false },
+  crowd: { src: './images/gallery-1.webp', alt: 'Pista cheia durante uma atuação', video: false },
+};
+
+class Component extends DCLogic {
+  videoRef = React.createRef();
+  state = { progress: 0, lightbox: null };
+
+  componentDidMount() {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('m4rq-visible');
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    this.scanReveals = () => document.querySelectorAll('.m4rq-reveal:not(.m4rq-visible)').forEach((el) => {
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) { el.classList.add('m4rq-visible'); return; }
+      if (r.bottom <= 0) { el.classList.add('m4rq-visible'); return; }
+      this.observer.observe(el);
+    });
+    this.scanReveals();
+    this.rescan = setInterval(this.scanReveals, 800);
+
+    this.onKeyDown = (e) => { if (e.key === 'Escape' && this.state.lightbox) this.setState({ lightbox: null }); };
+    window.addEventListener('keydown', this.onKeyDown);
+
+    const v = this.videoRef.current;
+    if (v) {
+      v.muted = true; v.defaultMuted = true; v.volume = 0; v.playsInline = true; v.loop = true;
+      const tryPlay = () => { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => {}); };
+      tryPlay();
+      v.addEventListener('ended', tryPlay);
+      v.addEventListener('volumechange', () => { if (!v.muted) v.muted = true; });
+      v.addEventListener('pause', () => { if (!document.hidden) tryPlay(); });
+      this.retryEvents = ['click', 'touchstart', 'scroll', 'keydown'];
+      this.retryPlay = () => { tryPlay(); this.retryEvents.forEach((evt) => window.removeEventListener(evt, this.retryPlay)); };
+      this.retryEvents.forEach((evt) => window.addEventListener(evt, this.retryPlay, { passive: true, once: true }));
+    }
+
+    this.onScroll = () => {
+      const zone = window.innerHeight * 1.3;
+      const progress = Math.min(1, Math.max(0, window.scrollY / zone));
+      if (progress !== this.state.progress) this.setState({ progress });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('keydown', this.onKeyDown);
+    if (this.observer) this.observer.disconnect();
+    if (this.rescan) clearInterval(this.rescan);
+    if (this.retryEvents) this.retryEvents.forEach((evt) => window.removeEventListener(evt, this.retryPlay));
+  }
+
+  handlers() {
+    if (this._handlers) return this._handlers;
+    const open = {};
+    const keyOpen = {};
+    Object.keys(MEDIA).forEach((k) => {
+      open[k] = () => this.setState({ lightbox: MEDIA[k] });
+      keyOpen[k] = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.setState({ lightbox: MEDIA[k] }); }
+      };
+    });
+    this._handlers = { open, keyOpen };
+    return this._handlers;
+  }
+
+  renderVals() {
+    const intensity = this.props.overlayIntensity ?? 0.42;
+    const progress = this.state.progress;
+    const fadeProgress = Math.min(1, progress / 0.3);
+    const lateProgress = Math.max(0, Math.min(1, (progress - 0.6) / 0.4));
+    const lb = this.state.lightbox;
+    const { open, keyOpen } = this.handlers();
+    return {
+      overlayColor: `rgba(10,9,8,${Math.min(0.94, intensity + lateProgress * 0.5)})`,
+      contentOpacity: 1 - fadeProgress,
+      contentTransform: `translateY(${-fadeProgress * 30}px)`,
+      videoOpacity: 1 - lateProgress,
+      videoRef: this.videoRef,
+      events: EVENTS,
+      open,
+      keyOpen,
+      driveUrl: this.props.driveUrl || '#google-drive-url-placeholder',
+      showSlots: this.props.mediaSlots ?? true,
+      lightbox: !!lb,
+      lightboxIsVideo: !!(lb && lb.video),
+      lightboxIsPhoto: !!(lb && !lb.video),
+      lightboxImg: lb && !lb.video
+        ? React.createElement('img', { src: lb.src, alt: lb.alt, style: { width: '100%', maxHeight: '84vh', objectFit: 'contain', display: 'block' } })
+        : null,
+      closeLightbox: () => this.setState({ lightbox: null }),
+      stopPropagation: (e) => e.stopPropagation(),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
