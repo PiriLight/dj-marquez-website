@@ -4,6 +4,7 @@ import { useAutoplayVideo } from '../hooks/useAutoplayVideo.js';
 import { useSmoothScroll } from '../hooks/useSmoothScroll.js';
 import SocialLinks from '../components/SocialLinks.jsx';
 import { CalendarIcon } from '../components/Icons.jsx';
+import { HERO_MEDIA, SITE_LINKS } from '../config/site.js';
 
 const OVERLAY_INTENSITY = 0.42;
 
@@ -29,11 +30,13 @@ export default function Hero() {
         <video
           ref={videoRef}
           className="m4rq-anim"
-          src="/assets/videos/hero-video.mp4"
-          autoPlay
+          poster={HERO_MEDIA.poster}
+          preload="metadata"
           muted
           loop
           playsInline
+          aria-hidden="true"
+          tabIndex={-1}
           style={{
             position: 'absolute',
             inset: 0,
@@ -45,7 +48,9 @@ export default function Hero() {
             willChange: 'transform',
             opacity: videoOpacity,
           }}
-        />
+        >
+          <source src={HERO_MEDIA.video} type="video/mp4" />
+        </video>
 
         <div style={{ position: 'absolute', inset: 0, background: overlayColor }} />
         <div
@@ -65,6 +70,7 @@ export default function Hero() {
         />
 
         <div style={{ position: 'relative', zIndex: 2, height: '100%', opacity: contentOpacity, transform: contentTransform }}>
+          <h1 className="m4rq-sr-only">DJ M4rquez</h1>
           <div
             style={{
               position: 'absolute',
@@ -81,6 +87,8 @@ export default function Hero() {
               className="m4rq-anim"
               src="/assets/images/logo-m4rquez.png"
               alt="DJ M4rquez"
+              decoding="async"
+              fetchpriority="high"
               style={{
                 width: 'min(78vw,360px)',
                 maxWidth: '100%',
@@ -106,48 +114,46 @@ export default function Hero() {
             <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
                 <a
+                  href={SITE_LINKS.booking}
+                  onClick={smoothScroll}
+                  className="m4rq-anim m4rq-booking-cta m4rq-hero-primary"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 11,
+                    padding: '15px 31px',
+                    background: '#cf8a3f',
+                    backdropFilter: 'blur(10px) saturate(160%)',
+                    WebkitBackdropFilter: 'blur(10px) saturate(160%)',
+                    color: '#0b0a09',
+                    fontFamily: "'Oswald', sans-serif",
+                    fontWeight: 700,
+                    fontSize: 14,
+                    letterSpacing: '0.14em',
+                    textTransform: 'uppercase',
+                    textDecoration: 'none',
+                    borderRadius: 12,
+                    border: '1px solid rgba(241,166,79,0.95)',
+                    boxShadow: '0 10px 28px rgba(0,0,0,0.32), 0 0 24px rgba(207,138,63,0.2)',
+                    transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease',
+                    animation: 'm4rqFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.5s both',
+                  }}
+                >
+                  <CalendarIcon />
+                  <span>Agendar Artista</span>
+                </a>
+                <a
                   href="#eventos"
                   onClick={smoothScroll}
-                  className="m4rq-anim m4rq-cta"
+                  className="m4rq-anim m4rq-cta m4rq-hero-secondary"
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     gap: 10,
-                    padding: '14px 30px',
-                    background: 'rgba(24,18,14,0.35)',
-                    backdropFilter: 'blur(10px) saturate(160%)',
-                    WebkitBackdropFilter: 'blur(10px) saturate(160%)',
-                    color: '#f5f0e8',
-                    fontFamily: "'Oswald', sans-serif",
-                    fontWeight: 600,
-                    fontSize: 14,
-                    letterSpacing: '0.12em',
-                    textTransform: 'uppercase',
-                    textDecoration: 'none',
-                    borderRadius: 12,
-                    border: '1px solid rgba(207,138,63,0.5)',
-                    boxShadow: '0 8px 24px rgba(0,0,0,0.28)',
-                    transition: 'transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease',
-                    animation: 'm4rqFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.5s both',
-                  }}
-                >
-                  <span>Próximos Eventos</span>
-                  <span className="m4rq-arrow" style={{ display: 'inline-block', transition: 'transform 0.25s ease' }}>
-                    →
-                  </span>
-                </a>
-                <a
-                  href="#booking"
-                  onClick={smoothScroll}
-                  className="m4rq-anim m4rq-booking-cta"
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 9,
                     padding: '13px 26px',
-                    background: 'transparent',
+                    background: 'rgba(24,18,14,0.28)',
                     color: 'rgba(245,240,232,0.85)',
                     fontFamily: "'Oswald', sans-serif",
                     fontWeight: 500,
@@ -161,8 +167,10 @@ export default function Hero() {
                     animation: 'm4rqFadeUp 0.5s cubic-bezier(0.16,1,0.3,1) 0.55s both',
                   }}
                 >
-                  <CalendarIcon />
-                  <span>Agendar Artista</span>
+                  <span>Próximos Eventos</span>
+                  <span className="m4rq-arrow" aria-hidden="true" style={{ display: 'inline-block', transition: 'transform 0.25s ease' }}>
+                    →
+                  </span>
                 </a>
               </div>
             </div>

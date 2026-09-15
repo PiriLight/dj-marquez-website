@@ -1,7 +1,26 @@
+import { useEffect, useRef } from 'react';
+
 export default function Lightbox({ item, onClose }) {
+  const closeRef = useRef(null);
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus?.();
+    };
+  }, []);
+
   return (
     <div
       onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={item.video ? 'Vídeo em destaque' : 'Fotografia em destaque'}
       style={{
         position: 'fixed',
         inset: 0,
@@ -15,6 +34,7 @@ export default function Lightbox({ item, onClose }) {
       }}
     >
       <button
+        ref={closeRef}
         onClick={onClose}
         aria-label="Fechar"
         style={{

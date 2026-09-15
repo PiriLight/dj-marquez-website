@@ -9,19 +9,7 @@ export default function Footer() {
       >
         <img src="/assets/images/logo-m4rquez.png" alt="DJ M4rquez" loading="lazy" style={{ width: 'clamp(120px,12vw,160px)', height: 'auto', display: 'block' }} />
 
-        <SocialLinks size="small" />
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          <img
-            src="/assets/images/beatwave-logo.webp"
-            alt="Beat Wave"
-            loading="lazy"
-            style={{ width: 72, height: 'auto', objectFit: 'contain', display: 'block', filter: 'invert(1) brightness(0.9)', mixBlendMode: 'screen', opacity: 0.9 }}
-          />
-          <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.5)' }}>
-            Representado pela Beat Wave
-          </p>
-        </div>
+        <SocialLinks size="labeled" />
       </div>
 
       <div style={{ maxWidth: 1320, margin: 'clamp(28px,4vh,44px) auto 0', paddingTop: 22, borderTop: '1px solid rgba(245,240,232,0.08)' }}>

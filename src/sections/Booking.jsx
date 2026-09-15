@@ -1,4 +1,5 @@
 import Reveal from '../components/Reveal.jsx';
+import { SITE_LINKS } from '../config/site.js';
 
 export default function Booking() {
   return (
@@ -89,54 +90,34 @@ export default function Booking() {
           <p style={{ margin: 0, fontSize: 'clamp(15px,1.2vw,17px)', lineHeight: 1.7, color: 'rgba(245,240,232,0.62)', maxWidth: '44ch' }}>
             Para atuações, eventos e informações profissionais.
           </p>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 8 }}>
             <a
-              href="#booking"
-              className="m4rqx-solid"
+              href={SITE_LINKS.booking}
+              className="m4rqx-primary-cta"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: 12,
-                padding: '16px 32px',
+                gap: 16,
+                padding: '20px 44px',
                 background: '#cf8a3f',
                 color: '#0b0a09',
                 fontFamily: "'Oswald', sans-serif",
-                fontWeight: 600,
-                fontSize: 13,
-                letterSpacing: '0.16em',
+                fontWeight: 700,
+                fontSize: 14,
+                letterSpacing: '0.2em',
                 textTransform: 'uppercase',
                 textDecoration: 'none',
-                borderRadius: 2,
-                minHeight: 52,
+                borderRadius: 0,
+                minHeight: 60,
                 boxSizing: 'border-box',
-                transition: 'background 0.25s ease, transform 0.25s ease',
+                boxShadow: '0 12px 32px rgba(207,138,63,0.22)',
+                transition: 'background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease',
               }}
             >
-              Agendar artista →
-            </a>
-            <a
-              href="#beatwave-contact"
-              className="m4rqx-ghost"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 10,
-                padding: '16px 28px',
-                border: '1px solid rgba(207,138,63,0.45)',
-                color: '#f5f0e8',
-                fontFamily: "'Oswald', sans-serif",
-                fontWeight: 500,
-                fontSize: 13,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                textDecoration: 'none',
-                borderRadius: 2,
-                minHeight: 52,
-                boxSizing: 'border-box',
-                transition: 'border-color 0.25s ease, background 0.25s ease',
-              }}
-            >
-              Contactar Beat Wave
+              <span>Agendar Artista</span>
+              <span className="m4rq-arrow" aria-hidden="true" style={{ display: 'inline-flex', transition: 'transform 0.25s ease' }}>
+                →
+              </span>
             </a>
           </div>
         </div>

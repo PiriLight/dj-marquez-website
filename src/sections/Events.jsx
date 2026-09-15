@@ -1,24 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '../components/Reveal.jsx';
-import { useSmoothScroll } from '../hooks/useSmoothScroll.js';
-
-/**
- * Confirmed dates first, then placeholders. A `tba` row renders as a plain div
- * rather than an anchor — there is nothing to link to yet, so it must not be
- * focusable or look pressable.
- */
-const EVENTS = [
-  {
-    id: 'midnight-marteleira-2026-08-26',
-    date: '26 AGO 2026',
-    venue: 'Midnight',
-    city: 'Marteleira',
-    href: '#booking',
-  },
-  { id: 'tba-1', tba: true },
-  { id: 'tba-2', tba: true },
-  { id: 'tba-3', tba: true },
-];
+import { useEvents } from '../hooks/useEvents.js';
 
 /** True once `ref` is within `rootMargin` of the viewport. Fires once, then stops. */
 function useNearViewport(ref, rootMargin) {
@@ -170,7 +152,7 @@ function AgendaBackdrop({ active }) {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         tabIndex={-1}
         // Fades in on the first frame that actually renders, so the entrance
         // coincides with playback starting rather than with buffering finishing.
@@ -178,8 +160,11 @@ function AgendaBackdrop({ active }) {
         style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
       />
 
-      {/* Flat scrim — main readability guard against the clip's fire highlights. */}
-      <div className="m4rqx-agenda-scrim" style={{ position: 'absolute', inset: 0, background: 'rgba(5,5,8,0.63)' }} />
+      {/* Flat scrim — main readability guard against the clip's fire highlights.
+          0.54 desktop / 0.58 mobile (see the mobile override below) — roughly
+          15-20% lighter than the previous 0.63/0.72 pair, so the footage reads
+          more clearly without competing with the event list. */}
+      <div className="m4rqx-agenda-scrim" style={{ position: 'absolute', inset: 0, background: 'rgba(5,5,8,0.54)' }} />
 
       {/* Vertical fade: solid at both edges so the clip dissolves into the page
           background (no hard video rectangle into Archive above / Booking below),
@@ -221,7 +206,7 @@ export default function Events() {
   const near = useNearViewport(sectionRef, '600px 0px'); // load
   const inView = useInViewport(sectionRef); // play
   const reducedMotion = usePrefersReducedMotion();
-  const smoothScroll = useSmoothScroll();
+  const { events, isLoading } = useEvents();
 
   return (
     <section
@@ -256,17 +241,18 @@ export default function Events() {
             Próximos Eventos
           </h2>
         </div>
-        <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.4)' }}>2026</p>
+        <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.4)' }}>{new Date().getFullYear()}</p>
       </Reveal>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: 1320, margin: '0 auto', borderTop: '1px solid rgba(245,240,232,0.12)' }}>
-        {EVENTS.map((ev) => (
+        {isLoading && events.length === 0 ? (
+          <p className="m4rqx-events-state" role="status">A carregar agenda…</p>
+        ) : events.length === 0 ? (
+          <p className="m4rqx-events-state">Sem datas anunciadas de momento.</p>
+        ) : events.map((ev) => (
           <Reveal
             key={ev.id}
-            as={ev.tba ? 'div' : 'a'}
-            href={ev.tba ? undefined : ev.href}
-            onClick={ev.tba ? undefined : smoothScroll}
-            className={ev.tba ? 'm4rqx-row m4rqx-row-tba' : 'm4rqx-row'}
+            className="m4rqx-row"
             style={{
               display: 'grid',
               gridTemplateColumns: 'minmax(120px,0.5fr) minmax(0,1.4fr) minmax(0,1fr) auto',
@@ -274,52 +260,51 @@ export default function Events() {
               gap: 'clamp(16px,3vw,40px)',
               padding: 'clamp(22px,3vh,34px) clamp(8px,1.6vw,24px)',
               borderBottom: '1px solid rgba(245,240,232,0.12)',
-              textDecoration: 'none',
-              color: 'inherit',
             }}
           >
             <span className="m4rqx-row-date" style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600, fontSize: 'clamp(16px,1.5vw,21px)', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.9)', transition: 'color 0.3s ease' }}>
-              {ev.tba ? '—' : ev.date}
+              {ev.date}
             </span>
             <span className="m4rqx-row-venue" style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 500, fontSize: 'clamp(20px,2.4vw,34px)', letterSpacing: '0.01em', color: '#f5f0e8', display: 'inline-block', transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1)' }}>
-              {ev.tba ? 'Por anunciar' : ev.venue}
+              {ev.name}
             </span>
             <span style={{ fontSize: 13, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.5)' }}>
-              {ev.tba ? 'Em breve' : ev.city}
+              {ev.location}
             </span>
-            <span
-              className="m4rqx-row-action"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 9,
-                padding: '0 20px',
-                minHeight: 46,
-                border: '1px solid rgba(207,138,63,0.5)',
-                borderRadius: 2,
-                fontFamily: "'Oswald', sans-serif",
-                fontWeight: 600,
-                fontSize: 12,
-                letterSpacing: '0.16em',
-                textTransform: 'uppercase',
-                color: '#e0a35a',
-                background: 'transparent',
-                whiteSpace: 'nowrap',
-                transition: 'background 0.25s ease, border-color 0.25s ease, color 0.25s ease',
-              }}
-            >
-              {ev.tba ? (
-                'Em breve'
-              ) : (
-                <>
-                  Mais informações{' '}
-                  <span className="m4rqx-arrow" style={{ display: 'inline-block', transition: 'transform 0.25s ease' }}>
-                    →
-                  </span>
-                </>
-              )}
-            </span>
+
+            {ev.info_url ? (
+              <a
+                href={ev.info_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="m4rqx-info-btn"
+                aria-label={`Mais informações sobre ${ev.name}`}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 9,
+                  padding: '12px 0',
+                  margin: '-12px 0',
+                  border: 'none',
+                  borderBottom: '1px solid rgba(245,240,232,0.32)',
+                  background: 'transparent',
+                  fontFamily: "'Oswald', sans-serif",
+                  fontWeight: 600,
+                  fontSize: 12,
+                  letterSpacing: '0.16em',
+                  textTransform: 'uppercase',
+                  color: 'rgba(245,240,232,0.82)',
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  transition: 'color 0.25s ease, border-color 0.25s ease',
+                }}
+              >
+                Mais informações
+                <span className="m4rqx-arrow" aria-hidden="true" style={{ display: 'inline-block', transition: 'transform 0.25s ease' }}>
+                  →
+                </span>
+              </a>
+            ) : <span aria-hidden="true" />}
           </Reveal>
         ))}
       </div>

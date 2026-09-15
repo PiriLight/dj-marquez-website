@@ -1,10 +1,6 @@
 import Reveal from '../components/Reveal.jsx';
-
-/**
- * PLACEHOLDER — replace with the final Google Drive share URL before launch.
- * Keep target="_blank" + rel="noopener noreferrer" so it opens safely.
- */
-const GOOGLE_DRIVE_URL = '#google-drive-url';
+import { GoogleDriveIcon } from '../components/Icons.jsx';
+import { SITE_LINKS } from '../config/site.js';
 
 export default function Archive() {
   return (
@@ -41,18 +37,18 @@ export default function Archive() {
             Explora o arquivo completo de fotografias e vídeos de cada atuação.
           </p>
           <a
-            href={GOOGLE_DRIVE_URL}
+            href={SITE_LINKS.archive}
             target="_blank"
             rel="noopener noreferrer"
-            className="m4rqx-solid"
+            className="m4rqx-drive-cta"
             style={{
               alignSelf: 'flex-start',
               display: 'inline-flex',
               alignItems: 'center',
               gap: 12,
               padding: '16px 30px',
-              background: '#cf8a3f',
-              color: '#0b0a09',
+              background: 'rgba(245,240,232,0.05)',
+              color: '#f5f0e8',
               fontFamily: "'Oswald', sans-serif",
               fontWeight: 600,
               fontSize: 13,
@@ -62,10 +58,18 @@ export default function Archive() {
               borderRadius: 2,
               minHeight: 52,
               boxSizing: 'border-box',
-              transition: 'background 0.25s ease, transform 0.25s ease',
+              border: '1px solid rgba(245,240,232,0.22)',
+              backdropFilter: 'blur(6px)',
+              transition: 'background 0.25s ease, border-color 0.25s ease, transform 0.25s ease',
             }}
           >
-            Explorar arquivo →
+            <span className="m4rqx-drive-icon" style={{ display: 'inline-flex', transition: 'transform 0.35s ease' }}>
+              <GoogleDriveIcon size={16} />
+            </span>
+            <span>Explorar arquivo</span>
+            <span className="m4rqx-drive-arrow" aria-hidden="true" style={{ display: 'inline-flex', transition: 'transform 0.25s ease' }}>
+              →
+            </span>
           </a>
           <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.06em', color: 'rgba(245,240,232,0.38)' }}>
             Ficheiros disponíveis para download em qualidade original.

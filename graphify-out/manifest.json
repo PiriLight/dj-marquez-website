@@ -1,0 +1,337 @@
+{
+  ".claude/launch.json": {
+    "mtime": 1786799166.157209,
+    "ast_hash": "3c965167eca45122d65db1d5a1455e54",
+    "semantic_hash": "3c965167eca45122d65db1d5a1455e54"
+  },
+  "archive/legacy-root/support.js": {
+    "mtime": 1786792859.8845017,
+    "ast_hash": "951ae391b8ae72ef12e671c2fad23353",
+    "semantic_hash": "951ae391b8ae72ef12e671c2fad23353"
+  },
+  "archive/legacy-uploads/DJ M4rquez/image-slot.js": {
+    "mtime": 1786792860.0321748,
+    "ast_hash": "ffd58db33ccba77f4418532eb598043f",
+    "semantic_hash": "ffd58db33ccba77f4418532eb598043f"
+  },
+  "archive/legacy-uploads/DJ M4rquez/support.js": {
+    "mtime": 1786792860.1142447,
+    "ast_hash": "951ae391b8ae72ef12e671c2fad23353",
+    "semantic_hash": "951ae391b8ae72ef12e671c2fad23353"
+  },
+  "archive/pre-reorganization-originals/src/sections/About.jsx": {
+    "mtime": 1786792860.764195,
+    "ast_hash": "127a884b8ea35a07eb11528704e2354d",
+    "semantic_hash": "127a884b8ea35a07eb11528704e2354d"
+  },
+  "archive/pre-reorganization-originals/src/sections/Archive.jsx": {
+    "mtime": 1786792860.7954555,
+    "ast_hash": "ea59bd33fa8080b86198a33322ee4a78",
+    "semantic_hash": "ea59bd33fa8080b86198a33322ee4a78"
+  },
+  "archive/pre-reorganization-originals/src/sections/Booking.jsx": {
+    "mtime": 1786792860.8140936,
+    "ast_hash": "c67ca195ca71746fd56d4b3770c9830b",
+    "semantic_hash": "c67ca195ca71746fd56d4b3770c9830b"
+  },
+  "archive/pre-reorganization-originals/src/sections/Footer.jsx": {
+    "mtime": 1786792860.8641233,
+    "ast_hash": "e0d5398bbbc80552e142ef815929e987",
+    "semantic_hash": "e0d5398bbbc80552e142ef815929e987"
+  },
+  "archive/pre-reorganization-originals/src/sections/Gallery.jsx": {
+    "mtime": 1786792860.8952384,
+    "ast_hash": "e947cdf150e3b7a6657f318389d4ccd3",
+    "semantic_hash": "e947cdf150e3b7a6657f318389d4ccd3"
+  },
+  "archive/pre-reorganization-originals/src/sections/Hero.jsx": {
+    "mtime": 1786792860.913935,
+    "ast_hash": "e6e99f24d6c0c76a08507345706c8f27",
+    "semantic_hash": "e6e99f24d6c0c76a08507345706c8f27"
+  },
+  "package.json": {
+    "mtime": 1786792860.224041,
+    "ast_hash": "0ad9340b394d4af6e7df5ace14060af0",
+    "semantic_hash": "0ad9340b394d4af6e7df5ace14060af0"
+  },
+  "src/App.jsx": {
+    "mtime": 1786792860.5141194,
+    "ast_hash": "e8e8460de8825604e3c4812b6b9d8834",
+    "semantic_hash": "e8e8460de8825604e3c4812b6b9d8834"
+  },
+  "src/components/EventModal.jsx": {
+    "mtime": 1787497462.040824,
+    "ast_hash": "4e4c871f8db7691775b577462a817363",
+    "semantic_hash": "4e4c871f8db7691775b577462a817363"
+  },
+  "src/components/Icons.jsx": {
+    "mtime": 1787496098.0806751,
+    "ast_hash": "c13bb76dd19de333fb78f5c8f06146ce",
+    "semantic_hash": "c13bb76dd19de333fb78f5c8f06146ce"
+  },
+  "src/components/Lightbox.jsx": {
+    "mtime": 1786889695.645972,
+    "ast_hash": "a88f5ab47b2fdf32fa32cfa45acd940d",
+    "semantic_hash": "a88f5ab47b2fdf32fa32cfa45acd940d"
+  },
+  "src/components/Reveal.jsx": {
+    "mtime": 1786792860.6148696,
+    "ast_hash": "409b01ec3cdd2dd579eb0514365c9aac",
+    "semantic_hash": "409b01ec3cdd2dd579eb0514365c9aac"
+  },
+  "src/components/SocialLinks.jsx": {
+    "mtime": 1787497540.9312456,
+    "ast_hash": "db1b1589f21ffe512088fb2772815e49",
+    "semantic_hash": "db1b1589f21ffe512088fb2772815e49"
+  },
+  "src/hooks/useAutoplayVideo.js": {
+    "mtime": 1786792860.6649039,
+    "ast_hash": "2a932013018b9fc759f6c7cd519e2bca",
+    "semantic_hash": "2a932013018b9fc759f6c7cd519e2bca"
+  },
+  "src/hooks/useHeroScroll.js": {
+    "mtime": 1786792860.6977563,
+    "ast_hash": "52d3889888738b46003fa49aab9abe00",
+    "semantic_hash": "52d3889888738b46003fa49aab9abe00"
+  },
+  "src/hooks/useReveal.js": {
+    "mtime": 1786792860.7253146,
+    "ast_hash": "68b618c0a2bf9fb4c7404c7109207c15",
+    "semantic_hash": "68b618c0a2bf9fb4c7404c7109207c15"
+  },
+  "src/hooks/useSmoothScroll.js": {
+    "mtime": 1787253904.9912329,
+    "ast_hash": "673572770d93658df9572d087a405003",
+    "semantic_hash": "673572770d93658df9572d087a405003"
+  },
+  "src/main.jsx": {
+    "mtime": 1786792860.5399597,
+    "ast_hash": "a2af6eba8342b8081e8c18ed07e7f671",
+    "semantic_hash": "a2af6eba8342b8081e8c18ed07e7f671"
+  },
+  "src/sections/About.jsx": {
+    "mtime": 1786794207.6816733,
+    "ast_hash": "661ff47965bb8ad0948cc4d71b45fc6a",
+    "semantic_hash": "661ff47965bb8ad0948cc4d71b45fc6a"
+  },
+  "src/sections/Archive.jsx": {
+    "mtime": 1787496140.9075832,
+    "ast_hash": "4d8853174174412589be587ecc11b8b7",
+    "semantic_hash": "4d8853174174412589be587ecc11b8b7"
+  },
+  "src/sections/Booking.jsx": {
+    "mtime": 1787496127.1244547,
+    "ast_hash": "462a8634b106d0c6a9ef4bf3cdba7863",
+    "semantic_hash": "462a8634b106d0c6a9ef4bf3cdba7863"
+  },
+  "src/sections/Events.jsx": {
+    "mtime": 1787497867.5702865,
+    "ast_hash": "95a1bb9c24a740281a192a7c54fa87fe",
+    "semantic_hash": "95a1bb9c24a740281a192a7c54fa87fe"
+  },
+  "src/sections/Footer.jsx": {
+    "mtime": 1787497544.7297966,
+    "ast_hash": "68400ace372e9f23219dbab3ac670f18",
+    "semantic_hash": "68400ace372e9f23219dbab3ac670f18"
+  },
+  "src/sections/Gallery.jsx": {
+    "mtime": 1786889682.9831195,
+    "ast_hash": "61da3fd827cfb994d388581537a2b90f",
+    "semantic_hash": "61da3fd827cfb994d388581537a2b90f"
+  },
+  "src/sections/Hero.jsx": {
+    "mtime": 1787253626.985486,
+    "ast_hash": "48aaa4041529f8c2401f18f51d0b5002",
+    "semantic_hash": "48aaa4041529f8c2401f18f51d0b5002"
+  },
+  "vite.config.js": {
+    "mtime": 1786792860.249398,
+    "ast_hash": "eb98c53348e57a55028f415914969a6b",
+    "semantic_hash": "eb98c53348e57a55028f415914969a6b"
+  },
+  "README.md": {
+    "mtime": 1786794213.6345773,
+    "ast_hash": "7581b331aa6f60aec5414e06251edf6b",
+    "semantic_hash": "7581b331aa6f60aec5414e06251edf6b"
+  },
+  "archive/legacy-root/DJ M4RQUEZ Site.dc.html": {
+    "mtime": 1786792859.6426904,
+    "ast_hash": "4ebb823b206d4959d16a789662143b81",
+    "semantic_hash": "4ebb823b206d4959d16a789662143b81"
+  },
+  "archive/legacy-uploads/DJ M4rquez/DJ M4rquez Hero Section BACKUP .dc copy.html": {
+    "mtime": 1786792859.9319878,
+    "ast_hash": "d24e1f8233a72c63c92836521c0e7335",
+    "semantic_hash": "d24e1f8233a72c63c92836521c0e7335"
+  },
+  "archive/legacy-uploads/DJ M4rquez/DJ M4rquez Hero Section.dc.html": {
+    "mtime": 1786792859.9764192,
+    "ast_hash": "d24e1f8233a72c63c92836521c0e7335",
+    "semantic_hash": "d24e1f8233a72c63c92836521c0e7335"
+  },
+  "archive/pre-reorganization-originals/index.html": {
+    "mtime": 1786792860.1641939,
+    "ast_hash": "b92d0e69079083f437ece9febb329d70",
+    "semantic_hash": "b92d0e69079083f437ece9febb329d70"
+  },
+  "index.html": {
+    "mtime": 1786794205.6555817,
+    "ast_hash": "bab91b3977295c82fd039d1e12ce7d39",
+    "semantic_hash": "bab91b3977295c82fd039d1e12ce7d39"
+  },
+  "archive/duplicates/react-app/public/icons/favicon.png": {
+    "mtime": 1786792860.264025,
+    "ast_hash": "2a79009543e5d78d507a558a501ba9c9",
+    "semantic_hash": "2a79009543e5d78d507a558a501ba9c9"
+  },
+  "archive/legacy-root/images/artist-portrait.webp": {
+    "mtime": 1786792859.676295,
+    "ast_hash": "9455dc8328e1b19bb83b6a49e9c72da5",
+    "semantic_hash": "9455dc8328e1b19bb83b6a49e9c72da5"
+  },
+  "archive/legacy-root/images/beatwave-logo.webp": {
+    "mtime": 1786792859.7078032,
+    "ast_hash": "5f3e83d0f9217794c4571d7b480f45b0",
+    "semantic_hash": "5f3e83d0f9217794c4571d7b480f45b0"
+  },
+  "archive/legacy-root/images/gallery-1.webp": {
+    "mtime": 1786792859.7377043,
+    "ast_hash": "68822082b00c4cd56cda1b0b244f642e",
+    "semantic_hash": "68822082b00c4cd56cda1b0b244f642e"
+  },
+  "archive/legacy-root/images/gallery-4.webp": {
+    "mtime": 1786880837.9660642,
+    "ast_hash": "9d45af944358cbb7524d573eccfe2a41",
+    "semantic_hash": "9d45af944358cbb7524d573eccfe2a41"
+  },
+  "archive/legacy-root/images/gallery-7.webp": {
+    "mtime": 1786792859.8021116,
+    "ast_hash": "24bd9305972086a7eb9dc9bb4b1956b4",
+    "semantic_hash": "24bd9305972086a7eb9dc9bb4b1956b4"
+  },
+  "archive/legacy-root/images/logo-m4rquez.png": {
+    "mtime": 1786792859.827459,
+    "ast_hash": "2a79009543e5d78d507a558a501ba9c9",
+    "semantic_hash": "2a79009543e5d78d507a558a501ba9c9"
+  },
+  "archive/legacy-uploads/DJ M4rquez/images/logo-m4rquez.png": {
+    "mtime": 1786792860.1445296,
+    "ast_hash": "2a79009543e5d78d507a558a501ba9c9",
+    "semantic_hash": "2a79009543e5d78d507a558a501ba9c9"
+  },
+  "archive/legacy-uploads/DJ M4rquez/uploads/DJ M4RQUEZ/public/images/logo-m4rquez.webp": {
+    "mtime": 1786792861.0539348,
+    "ast_hash": "244869d1792737fa8332db58f3c9c428",
+    "semantic_hash": "244869d1792737fa8332db58f3c9c428"
+  },
+  "archive/legacy-uploads/DJ M4rquez/uploads/logo-m4rquez.webp": {
+    "mtime": 1786792861.0142899,
+    "ast_hash": "244869d1792737fa8332db58f3c9c428",
+    "semantic_hash": "244869d1792737fa8332db58f3c9c428"
+  },
+  "public/assets/images/123.webp": {
+    "mtime": 1787253360.884279,
+    "ast_hash": "2bc8f89b36044d06ece1e8b090ec438a",
+    "semantic_hash": "2bc8f89b36044d06ece1e8b090ec438a"
+  },
+  "public/assets/images/artist-portrait.webp": {
+    "mtime": 1786792860.305419,
+    "ast_hash": "9455dc8328e1b19bb83b6a49e9c72da5",
+    "semantic_hash": "9455dc8328e1b19bb83b6a49e9c72da5"
+  },
+  "public/assets/images/beatwave-logo.webp": {
+    "mtime": 1786792860.3353572,
+    "ast_hash": "5f3e83d0f9217794c4571d7b480f45b0",
+    "semantic_hash": "5f3e83d0f9217794c4571d7b480f45b0"
+  },
+  "public/assets/images/gallery-1.webp": {
+    "mtime": 1786792860.36376,
+    "ast_hash": "68822082b00c4cd56cda1b0b244f642e",
+    "semantic_hash": "68822082b00c4cd56cda1b0b244f642e"
+  },
+  "public/assets/images/gallery-4.webp": {
+    "mtime": 1786880837.9660642,
+    "ast_hash": "9d45af944358cbb7524d573eccfe2a41",
+    "semantic_hash": "9d45af944358cbb7524d573eccfe2a41"
+  },
+  "public/assets/images/gallery-7.webp": {
+    "mtime": 1786792860.424148,
+    "ast_hash": "24bd9305972086a7eb9dc9bb4b1956b4",
+    "semantic_hash": "24bd9305972086a7eb9dc9bb4b1956b4"
+  },
+  "public/assets/images/logo-m4rquez.png": {
+    "mtime": 1786792860.4440062,
+    "ast_hash": "2a79009543e5d78d507a558a501ba9c9",
+    "semantic_hash": "2a79009543e5d78d507a558a501ba9c9"
+  },
+  "public/assets/media/foto1.webp": {
+    "mtime": 1786886620.0368307,
+    "ast_hash": "adca6cd82fd204b4a93a17f29e1ae68b",
+    "semantic_hash": "adca6cd82fd204b4a93a17f29e1ae68b"
+  },
+  "public/assets/media/foto2.webp": {
+    "mtime": 1786886817.6201477,
+    "ast_hash": "b6958767c788812893a23b1d9f7d4b10",
+    "semantic_hash": "b6958767c788812893a23b1d9f7d4b10"
+  },
+  "public/assets/media/foto3.webp": {
+    "mtime": 1786887142.242859,
+    "ast_hash": "630c2377e8f057a645c9731cdfacbeca",
+    "semantic_hash": "630c2377e8f057a645c9731cdfacbeca"
+  },
+  "public/assets/media/foto4.webp": {
+    "mtime": 1786887808.0829315,
+    "ast_hash": "68822082b00c4cd56cda1b0b244f642e",
+    "semantic_hash": "68822082b00c4cd56cda1b0b244f642e"
+  },
+  "public/assets/media/vid1-poster.webp": {
+    "mtime": 1786889549.3102021,
+    "ast_hash": "f6f08c8bf2a57bb7e162d3d0d67c5d4c",
+    "semantic_hash": "f6f08c8bf2a57bb7e162d3d0d67c5d4c"
+  },
+  "public/assets/media/vid2-poster.webp": {
+    "mtime": 1786889568.8515418,
+    "ast_hash": "38224af448dcc727b54ada6196203fac",
+    "semantic_hash": "38224af448dcc727b54ada6196203fac"
+  },
+  "archive/legacy-root/videos/hero-video.mp4": {
+    "mtime": 1786792861.2258742,
+    "ast_hash": "7d58ec3619dff74d40af79e950e73f7c",
+    "semantic_hash": "7d58ec3619dff74d40af79e950e73f7c"
+  },
+  "archive/legacy-uploads/DJ M4rquez/uploads/DJ M4RQUEZ/public/videos/hero-video.mp4": {
+    "mtime": 1786792861.1038928,
+    "ast_hash": "7d58ec3619dff74d40af79e950e73f7c",
+    "semantic_hash": "7d58ec3619dff74d40af79e950e73f7c"
+  },
+  "archive/legacy-uploads/DJ M4rquez/uploads/hero-video.mp4": {
+    "mtime": 1786792860.9842496,
+    "ast_hash": "7d58ec3619dff74d40af79e950e73f7c",
+    "semantic_hash": "7d58ec3619dff74d40af79e950e73f7c"
+  },
+  "archive/legacy-uploads/DJ M4rquez/videos/hero-video.mp4": {
+    "mtime": 1786792861.1649668,
+    "ast_hash": "7d58ec3619dff74d40af79e950e73f7c",
+    "semantic_hash": "7d58ec3619dff74d40af79e950e73f7c"
+  },
+  "public/assets/media/vid1.mp4": {
+    "mtime": 1786880370.2129557,
+    "ast_hash": "952e06acec4f57189ebc7552965e27ff",
+    "semantic_hash": "952e06acec4f57189ebc7552965e27ff"
+  },
+  "public/assets/media/vid2.mp4": {
+    "mtime": 1786879777.801927,
+    "ast_hash": "ac291c1125658829cf39c540c2a90437",
+    "semantic_hash": "ac291c1125658829cf39c540c2a90437"
+  },
+  "public/assets/videos/animacao-12.mp4": {
+    "mtime": 1787172858.2463167,
+    "ast_hash": "f177654d4feceed234d8b666d3cab447",
+    "semantic_hash": "f177654d4feceed234d8b666d3cab447"
+  },
+  "public/assets/videos/hero-video.mp4": {
+    "mtime": 1786792860.4974926,
+    "ast_hash": "7d58ec3619dff74d40af79e950e73f7c",
+    "semantic_hash": "7d58ec3619dff74d40af79e950e73f7c"
+  }
+}
