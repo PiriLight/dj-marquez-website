@@ -2,15 +2,15 @@ import Reveal from '../components/Reveal.jsx';
 
 const FACTS = [
   { label: 'Base', value: 'Portugal' },
-  { label: 'Som', value: 'Afro House' },
-  { label: 'Formato', value: 'Live Performances' },
+  { label: 'Som', value: 'Afro House / Xaguada' },
+  { label: 'Formato', value: 'DJ Sets' },
 ];
 
 export default function About() {
   return (
     <section
       aria-labelledby="bio-name"
-      style={{ position: 'relative', padding: 'clamp(120px,22vh,260px) clamp(20px,6vw,88px) clamp(72px,10vh,120px)' }}
+      className="m4rqx-about-section"
     >
       <div
         aria-hidden="true"
@@ -68,11 +68,11 @@ export default function About() {
         </Reveal>
 
         <Reveal
+          className="m4rqx-bio-copy"
           style={{
             display: 'flex',
             flexDirection: 'column',
             gap: 'clamp(20px,2.6vw,30px)',
-            paddingBottom: 'clamp(0px,4vh,48px)',
           }}
         >
           <p style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontWeight: 500, fontSize: 12, letterSpacing: '0.32em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.42)' }}>
@@ -98,7 +98,7 @@ export default function About() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
             <span aria-hidden="true" style={{ width: 'clamp(28px,5vw,72px)', height: 1, background: '#cf8a3f', flexShrink: 0 }} />
             <p style={{ margin: 0, fontFamily: "'Oswald', sans-serif", fontWeight: 500, fontSize: 'clamp(12px,1.2vw,15px)', letterSpacing: '0.2em', textTransform: 'uppercase', color: '#cf8a3f' }}>
-              Afro House &bull; Afro Tech &bull; Afrobeat
+              Afro House &bull; Xaguada
             </p>
           </div>
 

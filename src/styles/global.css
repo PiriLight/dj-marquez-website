@@ -9,7 +9,6 @@ html {
 
 body {
   margin: 0;
-  min-width: 320px;
   overflow-x: hidden;
   background: #0b0a09;
 }
@@ -342,6 +341,26 @@ input {
   letter-spacing: 0.08em;
 }
 
+/* Keep section rhythm independent from mobile viewport height. */
+.m4rqx-about-section {
+  position: relative;
+  padding: clamp(120px, 22vh, 260px) clamp(20px, 6vw, 88px) clamp(72px, 10vh, 120px);
+}
+
+.m4rqx-bio-copy {
+  padding-bottom: clamp(0px, 4vh, 48px);
+}
+
+.m4rqx-gallery-section {
+  position: relative;
+  padding: clamp(48px, 8vh, 96px) clamp(20px, 6vw, 88px) clamp(56px, 8vh, 104px);
+}
+
+.m4rqx-activity-section {
+  --activity-card-padding: clamp(24px, 3vw, 40px);
+  padding: clamp(64px, 10vh, 124px) clamp(20px, 6vw, 88px);
+}
+
 /* Recent activity: editorial cards using the existing dark/gold language. */
 .m4rqx-activity-heading {
   display: flex;
@@ -362,22 +381,24 @@ input {
 .m4rqx-activity-grid {
   display: grid;
   grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+  align-items: start;
   gap: clamp(14px, 2vw, 26px);
 }
 
 .m4rqx-instagram-card,
 .m4rqx-youtube-card {
+  min-width: 0;
   border: 1px solid rgba(245, 240, 232, 0.14);
   background: rgba(20, 15, 12, 0.64);
+  transition: border-color 0.25s ease;
 }
 
 .m4rqx-instagram-card {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 100%;
-  padding: clamp(28px, 4vw, 54px);
+  gap: 24px;
+  padding: var(--activity-card-padding);
   color: #f5f0e8;
   text-decoration: none;
   overflow: hidden;
@@ -403,7 +424,13 @@ input {
   background: rgba(25, 18, 14, 0.82);
 }
 
+.m4rqx-youtube-card:hover,
+.m4rqx-youtube-card:focus-within {
+  border-color: rgba(224, 163, 90, 0.64);
+}
+
 .m4rqx-instagram-card:focus-visible,
+.m4rqx-youtube-preview:focus-visible,
 .m4rqx-youtube-meta a:focus-visible {
   outline: 2px solid #e0a35a;
   outline-offset: 4px;
@@ -412,7 +439,6 @@ input {
 .m4rqx-activity-icon {
   align-self: flex-start;
   display: inline-flex;
-  margin-bottom: clamp(44px, 8vw, 104px);
   color: #e0a35a;
 }
 
@@ -450,14 +476,28 @@ input {
   position: relative;
   z-index: 1;
   align-self: flex-start;
-  margin-top: clamp(32px, 5vw, 64px);
-  padding-bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 0;
   border-bottom: 1px solid rgba(245, 240, 232, 0.3);
   font-family: 'Oswald', sans-serif;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(245, 240, 232, 0.8);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.m4rqx-instagram-card:hover .m4rqx-activity-link,
+.m4rqx-instagram-card:focus-visible .m4rqx-activity-link,
+.m4rqx-activity-link:hover,
+.m4rqx-activity-link:focus-visible {
+  color: #e0a35a;
+  border-bottom-color: #e0a35a;
 }
 
 .m4rqx-youtube-card {
@@ -466,9 +506,78 @@ input {
 
 .m4rqx-youtube-frame {
   position: relative;
+  width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #08070c;
+}
+
+.m4rqx-youtube-preview {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px;
+  border: 0;
+  background: #141110;
+  color: #f5f0e8;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.m4rqx-youtube-preview:disabled {
+  cursor: progress;
+}
+
+.m4rqx-youtube-preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.m4rqx-youtube-play,
+.m4rqx-youtube-preview-label {
+  position: relative;
+  background: rgba(11, 10, 9, 0.85);
+}
+
+.m4rqx-youtube-play {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid rgba(245, 240, 232, 0.7);
+  border-radius: 50%;
+  padding-left: 3px;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.m4rqx-youtube-preview-label {
+  max-width: 100%;
+  padding: 5px 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.m4rqx-youtube-preview:hover .m4rqx-youtube-play,
+.m4rqx-youtube-preview:focus-visible .m4rqx-youtube-play {
+  color: #e0a35a;
+  border-color: #e0a35a;
+}
+
+.m4rqx-youtube-preview:focus-visible {
+  outline-offset: -4px;
 }
 
 .m4rqx-youtube-frame iframe {
@@ -483,8 +592,12 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: clamp(20px, 3vw, 32px);
+  gap: 16px;
+  padding: var(--activity-card-padding);
+}
+
+.m4rqx-youtube-meta > div {
+  min-width: 0;
 }
 
 .m4rqx-youtube-meta h3 {
@@ -493,17 +606,20 @@ input {
   font-family: 'Oswald', sans-serif;
   font-size: clamp(20px, 2.4vw, 30px);
   font-weight: 600;
+  overflow-wrap: anywhere;
 }
 
-.m4rqx-youtube-meta a {
+.m4rqx-youtube-meta > a {
   flex: 0 0 auto;
-  color: rgba(245, 240, 232, 0.8);
-  font-family: 'Oswald', sans-serif;
+}
+
+.m4rqx-video-fallback {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #e0a35a;
   font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-decoration: none;
-  text-transform: uppercase;
+  text-underline-offset: 4px;
 }
 
 /* Private events editor. It deliberately borrows the site system instead of
@@ -817,6 +933,27 @@ input {
 }
 
 @media (max-width: 1000px) {
+  .m4rqx-about-section {
+    padding-bottom: clamp(24px, 4vw, 40px);
+  }
+
+  .m4rqx-bio-copy {
+    padding-bottom: 0;
+  }
+
+  .m4rqx-gallery-section {
+    padding-top: clamp(24px, 4vw, 40px);
+    padding-bottom: clamp(48px, 6vw, 64px);
+  }
+
+  .m4rqx-activity-section {
+    padding-block: clamp(48px, 6vw, 64px);
+  }
+
+  .m4rqx-activity-heading {
+    gap: 20px;
+  }
+
   .m4rqx-bio {
     grid-template-columns: 1fr !important;
     gap: 28px !important;
@@ -867,10 +1004,6 @@ input {
   .m4rqx-activity-grid {
     grid-template-columns: 1fr;
   }
-
-  .m4rqx-instagram-card {
-    min-height: 420px;
-  }
 }
 
 @media (max-width: 720px) {
@@ -880,10 +1013,6 @@ input {
   .m4rq-admin-footer-actions {
     align-items: flex-start;
     flex-direction: column;
-  }
-
-  .m4rqx-instagram-card {
-    min-height: 360px;
   }
 
   .m4rq-admin-grid {
@@ -946,10 +1075,6 @@ input {
   .m4rq-hero-primary,
   .m4rq-hero-secondary {
     width: min(100%, 286px);
-  }
-
-  .m4rqx-youtube-meta {
-    padding: 18px;
   }
 
   .m4rq-admin-panel {

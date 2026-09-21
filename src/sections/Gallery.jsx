@@ -74,7 +74,6 @@ export default function Gallery() {
     <section
       aria-labelledby="momentos"
       className="m4rqx-gallery-section"
-      style={{ position: 'relative', padding: 'clamp(48px,8vh,96px) clamp(20px,6vw,88px) clamp(56px,8vh,104px)' }}
     >
       <Reveal
         style={{
