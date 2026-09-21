@@ -1,3 +1,5 @@
+import { upcomingEvents } from '../utils/events.js';
+
 export const DEFAULT_EVENTS = Object.freeze([
   {
     id: 'midnight-marteleira-2026-08-26',
@@ -10,8 +12,4 @@ export const DEFAULT_EVENTS = Object.freeze([
   },
 ]);
 
-export function visibleEvents(events) {
-  return [...events]
-    .filter((event) => event.is_visible && event.date && event.name && event.location)
-    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0));
-}
+export const visibleEvents = upcomingEvents;

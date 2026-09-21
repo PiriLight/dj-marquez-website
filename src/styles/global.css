@@ -778,6 +778,7 @@ input {
 }
 
 .m4rq-admin-event {
+  min-width: 0;
   margin: 0;
   padding: clamp(18px, 3vw, 30px);
   border: 1px solid rgba(245, 240, 232, 0.12);
@@ -797,6 +798,23 @@ input {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
+
+.m4rq-admin-shell, .m4rq-admin-panel { box-sizing: border-box; min-width: 0; }
+.m4rq-admin-panel { overflow-wrap: anywhere; }
+.m4rq-admin-grid label, .m4rq-admin-login label { min-width: 0; }
+.m4rq-admin-login input, .m4rq-admin-event input:not([type='checkbox']) { box-sizing: border-box; min-width: 0; font-size: 16px; color-scheme: dark; }
+.m4rq-admin-actions { flex-wrap: wrap; }
+.m4rq-admin-edit { margin-top: 28px; }
+.m4rq-admin-edit .m4rq-admin-footer-actions { margin-top: 18px; }
+.m4rq-admin-list-event { padding-block: 20px; border-top: 1px solid rgba(245,240,232,.18); }
+.m4rq-admin-list-event h2 { margin: 8px 0; font: 500 26px/1.2 'Oswald', sans-serif; }
+.m4rq-admin-list-event p { margin: 8px 0; }
+.m4rq-admin-delete-confirm { margin-top: 16px; padding: 16px; border-left: 2px solid #cf8a3f; background: rgba(207,138,63,.06); }
+.m4rq-admin-field-error { color: #ffbba8; font-size: 12px; line-height: 1.5; text-transform: none; letter-spacing: normal; }
+.m4rq-admin-panel button { min-height: 44px; white-space: normal; }
+.m4rq-admin-panel button:disabled { cursor: not-allowed; opacity: .55; }
+.m4rqx-events-notice { font-size: 14px; line-height: 1.7; color: #c2b7a9; padding-block: 20px; }
+#eventos .m4rqx-row > * { min-width: 0; overflow-wrap: anywhere; }
 
 .m4rq-admin-url {
   grid-column: span 2;
@@ -1126,3 +1144,12 @@ input {
     padding: 22px 16px;
   }
 }
+
+/* Account activation reuses the private editor's typography and colours. */
+.m4rq-setup-shell { display: grid; align-items: start; }
+.m4rq-setup-panel { width: min(560px, 100%); }
+.m4rq-setup-panel > p, .m4rq-setup-form p { margin: 0; }
+.m4rq-setup-form { display: grid; gap: 22px; min-width: 0; }
+.m4rq-setup-form label { margin-bottom: 8px; }
+.m4rq-setup-form .m4rq-admin-field-error { margin-top: 8px; color: #ffbba8; }
+.m4rq-setup-form > button { width: 100%; }

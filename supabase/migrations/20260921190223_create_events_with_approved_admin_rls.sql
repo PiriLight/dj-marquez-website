@@ -1,7 +1,5 @@
--- DJ M4rquez: proposed events/RLS setup. NOT automatically applied by the app.
--- Inspect the actual project/schema/policies first. Run with a trusted SQL owner
--- only after review. Transactional; no event/user deletion, seed or role assignment.
--- Preserve the existing text date column (legacy PT reads / ISO writes).
+-- Historical migration applied to PiriLight Studio / DJ-M4RQUEZ.
+-- The following migration replaces only the metadata requirement in the helper.
 begin;
 
 create table if not exists public.events (
@@ -17,8 +15,6 @@ create table if not exists public.events (
   constraint events_info_url_http check (info_url is null or info_url ~* '^https?://')
 );
 
--- Extra permissive policies could bypass the intended rules. Stop for review
--- instead of silently retaining or deleting policies from an unknown deployment.
 do $$
 begin
   if exists (
@@ -30,7 +26,6 @@ begin
 end $$;
 
 create schema if not exists private;
--- Keep this schema outside the Data API exposed schemas.
 grant usage on schema private to authenticated;
 create or replace function private.is_event_admin()
 returns boolean language sql stable security definer set search_path = ''
@@ -41,6 +36,7 @@ as $$
       and lower(u.email) in ('lachefbino@gmail.com', 'marquesandre112005@gmail.com')
       and u.email_confirmed_at is not null
       and coalesce(u.is_anonymous, false) = false
+      and u.raw_app_meta_data ->> 'role' = 'admin'
   );
 $$;
 revoke all on function private.is_event_admin() from public, anon;

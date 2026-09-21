@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Reveal from '../components/Reveal.jsx';
 import { useEvents } from '../hooks/useEvents.js';
+import { displayEventDate } from '../utils/events.js';
 
 /** True once `ref` is within `rootMargin` of the viewport. Fires once, then stops. */
 function useNearViewport(ref, rootMargin) {
@@ -201,12 +202,12 @@ function AgendaBackdrop({ active }) {
   );
 }
 
-export default function Events() {
+export default function Events({ feedOptions } = {}) {
   const sectionRef = useRef(null);
   const near = useNearViewport(sectionRef, '600px 0px'); // load
   const inView = useInViewport(sectionRef); // play
   const reducedMotion = usePrefersReducedMotion();
-  const { events, isLoading } = useEvents();
+  const { events, isLoading, source, today } = useEvents(feedOptions);
 
   return (
     <section
@@ -241,13 +242,14 @@ export default function Events() {
             Próximos Eventos
           </h2>
         </div>
-        <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.4)' }}>{new Date().getFullYear()}</p>
+        <p style={{ margin: 0, fontSize: 12, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.4)' }}>{today.slice(0, 4)}</p>
       </Reveal>
 
       <div style={{ position: 'relative', zIndex: 1, maxWidth: 1320, margin: '0 auto', borderTop: '1px solid rgba(245,240,232,0.12)' }}>
+        {(source === 'fallback' || source === 'unconfigured') && <p className="m4rqx-events-notice" role="status">A agenda está temporariamente indisponível. Confirma as próximas datas nas redes do artista.</p>}
         {isLoading && events.length === 0 ? (
           <p className="m4rqx-events-state" role="status">A carregar agenda…</p>
-        ) : events.length === 0 ? (
+        ) : events.length === 0 && source === 'remote' ? (
           <p className="m4rqx-events-state">Sem datas anunciadas de momento.</p>
         ) : events.map((ev) => (
           <Reveal
@@ -263,7 +265,7 @@ export default function Events() {
             }}
           >
             <span className="m4rqx-row-date" style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 600, fontSize: 'clamp(16px,1.5vw,21px)', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(245,240,232,0.9)', transition: 'color 0.3s ease' }}>
-              {ev.date}
+              <time dateTime={ev.date}>{displayEventDate(ev.date)}</time>
             </span>
             <span className="m4rqx-row-venue" style={{ fontFamily: "'Oswald', sans-serif", fontWeight: 500, fontSize: 'clamp(20px,2.4vw,34px)', letterSpacing: '0.01em', color: '#f5f0e8', display: 'inline-block', transition: 'transform 0.35s cubic-bezier(0.16,1,0.3,1)' }}>
               {ev.name}

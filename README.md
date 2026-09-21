@@ -58,12 +58,22 @@ The activity section uses a known real upload as its default and accepts a new Y
 
 ## Private events editor
 
-The editor is available at `/admin`. It has no public registration flow and only renders editing controls for a signed-in Supabase user whose `app_metadata.role` is `admin`.
+The editor is available at `/admin`. There is no public registration flow. It verifies the user with Supabase Auth before displaying editing controls. Only the two confirmed, non-anonymous accounts in `src/config/admin.js` are accepted: `lachefbino@gmail.com` and `marquesandre112005@gmail.com`. Neither `app_metadata` nor `user_metadata` grants access or is required. The frontend guard is not a substitute for RLS.
 
-1. Create a Supabase project and run `supabase/events.sql` in its SQL editor.
-2. Create the artist's user in Supabase Auth.
-3. Assign `{ "role": "admin" }` to that user's app metadata using a trusted Dashboard/Admin API flow, then refresh the user's session.
-4. Add the Supabase URL and publishable key to `.env.local` using the names above.
-5. Configure the production host to rewrite `/admin` to `/index.html`, since this is a Vite single-page application.
+1. Identify the **existing DJ M4rquez Supabase project**; inspect its schema, policies and Auth users before any remote change. Do not create a replacement project.
+2. Review `supabase/events.sql` against that inspection. It preserves the existing table and records and restricts writes to the two approved identities. Its private helper checks the current `auth.users` row for `auth.uid()`, confirmed email and non-anonymous status. Keep the `private` schema out of Data API exposed schemas. Unknown policies stop the script for review. The incremental migration in `supabase/migrations/20260921192134_event_admin_confirmed_allowlist.sql` only replaces this helper; it does not change events, policies or data.
+3. Prepare the invitation flow and Auth configuration described in `docs/AUTH_INVITE_QA.md` before inviting either approved account. No metadata role assignment is needed. The SQL does not create users. Do not disable email confirmation.
+4. Set the correct project's public URL and publishable key in ignored `.env.local`. `VITE_SUPABASE_ANON_KEY` is also supported for a legacy public anon key; prefer the existing `VITE_SUPABASE_PUBLISHABLE_KEY`. Missing settings show setup guidance. Secret/service-role keys in these configuration fields are rejected by the build.
+5. `vercel.json` prepares SPA rewrites for `/admin` and `/auth/setup-password`, plus activation-only privacy headers. This does not replace authentication or RLS. No deployment is part of this change; the production origin remains unconfirmed.
 
-Without Supabase configuration, the public site uses the confirmed local fallback event and `/admin` shows setup guidance rather than exposing an insecure editor.
+The editor supports individual create/update/delete, explicit deletion confirmation, validation and server-confirmed success. Failed saves preserve the form. Duplicate dates/names/locations in the loaded list are rejected; the UUID primary key also protects retry inserts. Concurrent creation by two admins with different UUIDs is not prevented by a new database unique constraint: adding one would require auditing existing records first.
+
+The existing text date column is retained: legacy `26 AGO 2026` is readable and new edits use `2026-08-26`. The public agenda includes today in `Europe/Lisbon`, excludes past/hidden/invalid entries and sorts chronologically. It refreshes on return to the tab and every minute while visible. Supabase is authoritative when reads succeed, including an empty result. Failure/missing configuration displays a visible notice and only valid upcoming local fallback entries; the historical Midnight event is no longer shown as upcoming. The admin never saves to a local fallback.
+
+Validation: `node --test tests/*.test.js`, `npm run build`, `git diff --check`. See `docs/ADMIN_EVENTS_QA.md` for the tested scenarios and remaining remote work. `tests/fixtures/admin.html` is an explicitly labelled, development-only simulation; it uses no real Supabase credentials or remote writes and is not included in the production build. The PostgreSQL test `tests/events-rls.sql` must only run in a disposable local database, never in the real Supabase project.
+
+### Invitation activation
+
+`/auth/setup-password` accepts only `token_hash` and `type=invite`, removes the query/hash from the address bar immediately, and calls the official `verifyOtp` method. `detectSessionInUrl` remains disabled. The form is shown only after a fresh `getUser` verifies the approved identity. Passwords are submitted only via `auth.updateUser`, with identity checks before and after; success navigates to `/admin`, which independently checks authorization again. A non-secret, short-lived sessionStorage marker allows refresh after successful verification. Passwords and invitation hashes are never stored by this flow.
+
+See `docs/AUTH_INVITE_QA.md` for the exact email template, development URLs, current validation evidence and remaining browser/real-invitation checks. Earlier QA documents record the earlier metadata-based rule; this document and the current helper supersede that authorization detail. No invitations have been sent.

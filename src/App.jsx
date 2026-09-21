@@ -9,12 +9,16 @@ import Booking from './sections/Booking.jsx';
 import Footer from './sections/Footer.jsx';
 
 const Admin = lazy(() => import('./sections/Admin.jsx'));
+const SetupPassword = lazy(() => import('./sections/SetupPassword.jsx'));
 
 function isAdminRoute() {
   return window.location.pathname.replace(/\/+$/, '') === '/admin';
 }
 
 export default function App() {
+  if (window.location.pathname.replace(/\/+$/, '') === '/auth/setup-password') {
+    return <Suspense fallback={<main className="m4rq-admin-shell"><p role="status">A abrir a ativação…</p></main>}><SetupPassword /></Suspense>;
+  }
   if (isAdminRoute()) {
     return (
       <Suspense fallback={<main className="m4rq-admin-shell"><p role="status">A abrir o editor…</p></main>}>
