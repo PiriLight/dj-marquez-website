@@ -1,7 +1,10 @@
+import { useState } from 'react';
+import BookingForm from '../components/BookingForm.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { SITE_LINKS } from '../config/site.js';
 
 export default function Booking() {
+  const [formOpen, setFormOpen] = useState(false);
   return (
     <section
       id="booking"
@@ -91,8 +94,10 @@ export default function Booking() {
             Para atuações, eventos e informações profissionais.
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, marginTop: 8 }}>
-            <a
-              href={SITE_LINKS.booking}
+            <button
+              type="button"
+              onClick={() => setFormOpen(true)}
+              aria-haspopup="dialog"
               className="m4rqx-primary-cta"
               style={{
                 display: 'inline-flex',
@@ -118,7 +123,7 @@ export default function Booking() {
               <span className="m4rq-arrow" aria-hidden="true" style={{ display: 'inline-flex', transition: 'transform 0.25s ease' }}>
                 →
               </span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -135,8 +140,10 @@ export default function Booking() {
             DJ M4rquez é representado pela <strong style={{ color: '#f5f0e8', fontWeight: 600 }}>Beat Wave</strong>. Para informações
             profissionais, atuações e booking, contacte a agência.
           </p>
+          <a className="m4rq-booking-agency-link" href={SITE_LINKS.agency} target="_blank" rel="noopener noreferrer">Beat Wave no Instagram ↗</a>
         </div>
       </Reveal>
+      {formOpen && <BookingForm onClose={() => setFormOpen(false)} />}
     </section>
   );
 }

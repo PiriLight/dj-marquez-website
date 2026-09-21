@@ -10,6 +10,12 @@ export const SITE_LINKS = Object.freeze({
   youtubeChannelId: 'UCOhHTtoIrGATjgy-e6MkHfQ',
   archive: 'https://drive.google.com/drive/folders/1scMaYX1ndwSJr70NbltrbYxjo6V7aCFd?usp=sharing',
   booking: configuredBookingUrl || '#booking',
+  agency: 'https://www.instagram.com/beatwave_agency/',
+});
+
+export const BOOKING_CONTACTS = Object.freeze({
+  whatsapp: env.VITE_BOOKING_WHATSAPP?.trim() || '351913235224',
+  email: env.VITE_BOOKING_EMAIL?.trim() || '',
 });
 
 export const YOUTUBE_CONTENT = Object.freeze({

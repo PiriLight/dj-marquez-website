@@ -1,62 +1,61 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-/**
- * Keeps the hero video silently autoplaying across browsers that block or
- * pause muted background video, retrying on the first user interaction.
- */
 export function useAutoplayVideo(videoRef) {
+  const [state, setState] = useState('loading');
+  const startRef = useRef(() => {});
   useEffect(() => {
-    const v = videoRef.current;
-    if (!v) return;
-
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-    v.muted = true;
-    v.defaultMuted = true;
-    v.volume = 0;
-    v.playsInline = true;
-    v.loop = true;
-
-    const shouldPlay = () => !motionQuery.matches && !document.hidden;
-    const tryPlay = () => {
-      if (!shouldPlay()) {
-        v.pause();
-        return;
-      }
-      v.muted = true;
-      const p = v.play();
-      if (p && p.catch) p.catch(() => {});
+    const video = videoRef.current;
+    if (!video) return undefined;
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let active = true;
+    let visible = true;
+    let userRequested = false;
+    let timer;
+    video.muted = video.defaultMuted = true;
+    video.playsInline = true;
+    const allowed = () => visible && !document.hidden && (!motion.matches || userRequested);
+    const start = async (manual = false) => {
+      if (manual) userRequested = true;
+      if (!allowed()) { video.pause(); return; }
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => { if (active && (video.paused || video.readyState < 3)) setState('blocked'); }, 8000);
+      try { await video.play(); if (active && !video.paused) setState('playing'); }
+      catch (error) { if (active && error.name !== 'AbortError') setState(video.error ? 'failed' : 'blocked'); }
     };
-    tryPlay();
-
-    const onVolumeChange = () => {
-      if (!v.muted) v.muted = true;
+    const playing = () => { window.clearTimeout(timer); if (active) setState('playing'); };
+    const failed = () => { window.clearTimeout(timer); if (active) setState('failed'); };
+    const paused = () => { if (active && allowed()) setState('blocked'); };
+    const sync = () => {
+      if (allowed()) start();
+      else { window.clearTimeout(timer); video.pause(); if (motion.matches && !userRequested) setState('blocked'); }
     };
-    const onPause = () => {
-      if (shouldPlay()) tryPlay();
-    };
-    const syncPlayback = () => tryPlay();
-
-    v.addEventListener('ended', tryPlay);
-    v.addEventListener('volumechange', onVolumeChange);
-    v.addEventListener('pause', onPause);
-    document.addEventListener('visibilitychange', syncPlayback);
-    motionQuery.addEventListener('change', syncPlayback);
-
-    const retryEvents = ['click', 'touchstart', 'scroll', 'keydown'];
-    const retryPlay = () => {
-      tryPlay();
-      retryEvents.forEach((evt) => window.removeEventListener(evt, retryPlay));
-    };
-    retryEvents.forEach((evt) => window.addEventListener(evt, retryPlay, { passive: true, once: true }));
-
+    const preferenceChanged = () => { userRequested = false; sync(); };
+    startRef.current = () => start(true);
+    video.addEventListener('playing', playing);
+    video.addEventListener('error', failed, true);
+    video.addEventListener('pause', paused);
+    document.addEventListener('visibilitychange', sync);
+    motion.addEventListener('change', preferenceChanged);
+    const observer = new IntersectionObserver(([entry]) => {
+      const nextVisible = entry.isIntersecting;
+      if (nextVisible !== visible) { visible = nextVisible; sync(); }
+    });
+    observer.observe(video);
+    // Respect reduced motion; do not retry on scroll or every pause.
+    video.autoplay = !motion.matches;
+    sync();
     return () => {
-      v.removeEventListener('ended', tryPlay);
-      v.removeEventListener('volumechange', onVolumeChange);
-      v.removeEventListener('pause', onPause);
-      document.removeEventListener('visibilitychange', syncPlayback);
-      motionQuery.removeEventListener('change', syncPlayback);
-      retryEvents.forEach((evt) => window.removeEventListener(evt, retryPlay));
+      active = false;
+      window.clearTimeout(timer);
+      observer.disconnect();
+      video.removeEventListener('playing', playing);
+      video.removeEventListener('error', failed, true);
+      video.removeEventListener('pause', paused);
+      document.removeEventListener('visibilitychange', sync);
+      motion.removeEventListener('change', preferenceChanged);
+      video.pause();
+      startRef.current = () => {};
     };
   }, [videoRef]);
+  return { state, start: () => startRef.current() };
 }

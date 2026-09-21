@@ -4,13 +4,13 @@ import { useAutoplayVideo } from '../hooks/useAutoplayVideo.js';
 import { useSmoothScroll } from '../hooks/useSmoothScroll.js';
 import SocialLinks from '../components/SocialLinks.jsx';
 import { CalendarIcon } from '../components/Icons.jsx';
-import { HERO_MEDIA, SITE_LINKS } from '../config/site.js';
+import { HERO_MEDIA } from '../config/site.js';
 
 const OVERLAY_INTENSITY = 0.42;
 
 export default function Hero() {
   const videoRef = useRef(null);
-  useAutoplayVideo(videoRef);
+  const { state: videoState, start: startVideo } = useAutoplayVideo(videoRef);
   const { overlayColor, contentOpacity, contentTransform, videoOpacity } = useHeroScroll(OVERLAY_INTENSITY);
   const smoothScroll = useSmoothScroll();
 
@@ -23,7 +23,7 @@ export default function Hero() {
           width: '100%',
           height: '100svh',
           overflow: 'hidden',
-          background: '#0b0a09',
+          background: `#0b0a09 url(${HERO_MEDIA.poster}) center 32% / cover no-repeat`,
           fontFamily: "'Inter', sans-serif",
         }}
       >
@@ -31,7 +31,8 @@ export default function Hero() {
           ref={videoRef}
           className="m4rq-anim"
           poster={HERO_MEDIA.poster}
-          preload="metadata"
+          preload="auto"
+          autoPlay={!window.matchMedia('(prefers-reduced-motion: reduce)').matches}
           muted
           loop
           playsInline
@@ -46,7 +47,7 @@ export default function Hero() {
             objectPosition: 'center 32%',
             animation: 'm4rqZoom 22s ease-in-out infinite alternate',
             willChange: 'transform',
-            opacity: videoOpacity,
+            opacity: videoState === 'playing' ? videoOpacity : 0,
           }}
         >
           <source src={HERO_MEDIA.video} type="video/mp4" />
@@ -70,6 +71,11 @@ export default function Hero() {
         />
 
         <div style={{ position: 'relative', zIndex: 2, height: '100%', opacity: contentOpacity, transform: contentTransform }}>
+          {(videoState === 'blocked' || videoState === 'failed') && (
+            <div className="m4rq-hero-video-control">
+              {videoState === 'blocked' ? <button type="button" onClick={startVideo}>Reproduzir vídeo de fundo ▶</button> : <span>Vídeo de fundo indisponível</span>}
+            </div>
+          )}
           <h1 className="m4rq-sr-only">DJ M4rquez</h1>
           <div
             style={{
@@ -114,7 +120,7 @@ export default function Hero() {
             <div style={{ flex: 1, minHeight: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
                 <a
-                  href={SITE_LINKS.booking}
+                  href="#booking"
                   onClick={smoothScroll}
                   className="m4rq-anim m4rq-booking-cta m4rq-hero-primary"
                   style={{
@@ -123,10 +129,10 @@ export default function Hero() {
                     justifyContent: 'center',
                     gap: 11,
                     padding: '15px 31px',
-                    background: '#cf8a3f',
+                    background: 'rgba(24,18,14,0.28)',
                     backdropFilter: 'blur(10px) saturate(160%)',
                     WebkitBackdropFilter: 'blur(10px) saturate(160%)',
-                    color: '#0b0a09',
+                    color: '#f5f0e8',
                     fontFamily: "'Oswald', sans-serif",
                     fontWeight: 700,
                     fontSize: 14,
@@ -141,7 +147,7 @@ export default function Hero() {
                   }}
                 >
                   <CalendarIcon />
-                  <span>Agendar Artista</span>
+                  <span>Booking</span>
                 </a>
                 <a
                   href="#eventos"
