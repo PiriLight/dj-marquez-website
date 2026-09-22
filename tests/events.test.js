@@ -33,6 +33,11 @@ test('validation: data, URL, IDs, duplicates, same ID edits and payload whitelis
   assert.equal(payload.name, 'Noite'); assert.equal(payload.date, '2026-09-21'); assert.equal(payload.info_url, null); assert.equal(payload.malicious, undefined);
 });
 test('authorization: exactly approved, confirmed identities; neither metadata field grants admin', () => {
+  assert.deepEqual(ADMIN_EMAILS, [
+    'lachefbino@gmail.com',
+    'marquesandre112005@gmail.com',
+    'afonsosantoscs@gmail.com',
+  ]);
   for (const email of ADMIN_EMAILS) assert.equal(isApprovedAdmin({...admin,email}), true);
   assert.equal(isApprovedAdmin({...admin,app_metadata:{role:'user'}}), true);
   for (const user of [null, {...admin,id:null}, {...admin,email:' lachefbino@gmail.com '}, {...admin,email:'other@example.com'}, {...admin,email_confirmed_at:null}, {...admin,is_anonymous:true}, {...admin,email:'other@example.com',app_metadata:{role:'admin'},user_metadata:{role:'admin'}}]) assert.equal(isApprovedAdmin(user), false);

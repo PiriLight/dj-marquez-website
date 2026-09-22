@@ -9,9 +9,10 @@ grant execute on function auth.uid() to authenticated, anon;
 insert into auth.users values
  ('aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa','lachefbino@gmail.com',now(),false,'{}','{}'),
  ('bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb','marquesandre112005@gmail.com',now(),false,'{}','{}'),
- ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','other@example.com',now(),false,'{"role":"admin"}','{}'),
- ('dddddddd-dddd-4ddd-8ddd-dddddddddddd','lachefbino@gmail.com',null,false,'{"role":"admin"}','{}'),
- ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee','outsider@example.com',now(),false,'{}','{"role":"admin"}');
+ ('cccccccc-cccc-4ccc-8ccc-cccccccccccc','afonsosantoscs@gmail.com',now(),false,'{}','{}'),
+ ('dddddddd-dddd-4ddd-8ddd-dddddddddddd','other@example.com',now(),false,'{"role":"admin"}','{}'),
+ ('eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee','lachefbino@gmail.com',null,false,'{"role":"admin"}','{}'),
+ ('ffffffff-ffff-4fff-8fff-ffffffffffff','outsider@example.com',now(),false,'{}','{"role":"admin"}');
 \i /tmp/events.sql
 insert into public.events(id,date,name,location,is_visible) values
  ('11111111-1111-4111-8111-111111111111','2026-09-21','Public fixture','Local',true),
@@ -26,16 +27,16 @@ do $$ begin
 end $$;
 reset role;
 set role authenticated;
-select set_config('request.jwt.claim.sub','cccccccc-cccc-4ccc-8ccc-cccccccccccc',false);
+select set_config('request.jwt.claim.sub','dddddddd-dddd-4ddd-8ddd-dddddddddddd',false);
 do $$ declare changed integer; begin
  if (select count(*) from public.events) <> 1 then raise exception 'non-admin read leak'; end if;
  begin insert into public.events(date,name,location) values('2026-01-01','bad','bad'); raise exception 'third account wrote'; exception when insufficient_privilege then null; end;
  update public.events set name='bad'; get diagnostics changed=row_count; if changed<>0 then raise exception 'third account updated'; end if;
  delete from public.events; get diagnostics changed=row_count; if changed<>0 then raise exception 'third account deleted'; end if;
 end $$;
-select set_config('request.jwt.claim.sub','dddddddd-dddd-4ddd-8ddd-dddddddddddd',false);
-do $$ begin if private.is_event_admin() then raise exception 'unconfirmed admin'; end if; end $$;
 select set_config('request.jwt.claim.sub','eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',false);
+do $$ begin if private.is_event_admin() then raise exception 'unconfirmed admin'; end if; end $$;
+select set_config('request.jwt.claim.sub','ffffffff-ffff-4fff-8fff-ffffffffffff',false);
 do $$ begin if private.is_event_admin() then raise exception 'user metadata elevation'; end if; end $$;
 select set_config('request.jwt.claim.sub','aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',false);
 do $$ declare changed integer; begin
@@ -46,9 +47,11 @@ do $$ declare changed integer; begin
 end $$;
 select set_config('request.jwt.claim.sub','bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb',false);
 do $$ begin if not private.is_event_admin() then raise exception 'second approved admin denied'; end if; end $$;
+select set_config('request.jwt.claim.sub','cccccccc-cccc-4ccc-8ccc-cccccccccccc',false);
+do $$ begin if not private.is_event_admin() then raise exception 'third approved admin denied'; end if; end $$;
 reset role;
 update auth.users set email_confirmed_at=null where id='bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 set role authenticated;
 do $$ begin if private.is_event_admin() then raise exception 'unconfirmed email still authorized'; end if; end $$;
 reset role;
-select 'PASS: anon/read, third-account denial, two admins without app_metadata, CRUD, unconfirmed/forged metadata, confirmation revocation, idempotent SQL' as result;
+select 'PASS: anon/read, outsider denial, three admins without app_metadata, CRUD, unconfirmed/forged metadata, confirmation revocation, idempotent SQL' as result;

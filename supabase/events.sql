@@ -38,7 +38,11 @@ as $$
   select exists (
     select 1 from auth.users u
     where u.id = (select auth.uid())
-      and lower(u.email) in ('lachefbino@gmail.com', 'marquesandre112005@gmail.com')
+      and lower(u.email) in (
+        'lachefbino@gmail.com',
+        'marquesandre112005@gmail.com',
+        'afonsosantoscs@gmail.com'
+      )
       and u.email_confirmed_at is not null
       and coalesce(u.is_anonymous, false) = false
   );
